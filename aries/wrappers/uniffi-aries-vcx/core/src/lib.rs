@@ -17,7 +17,9 @@ use aries_vcx::aries_vcx_wallet::wallet::askar::{
 #[cfg(feature = "vdrtools_wallet")]
 use aries_vcx::aries_vcx_wallet::wallet::indy::indy_wallet_config::IndyWalletConfig;
 use aries_vcx::protocols::connection::pairwise_info::PairwiseInfo;
-use handlers::{connection::*, holder::*, event_callback::*};
+use handlers::{connection::*, holder::*};
+
+use crate::handlers::event_callback::EventListener;
 
 use crate::{
     core::{anoncreds::*, profile::*, unpack_message::*},
