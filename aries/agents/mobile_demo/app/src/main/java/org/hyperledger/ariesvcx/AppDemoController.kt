@@ -48,15 +48,11 @@ class AppDemoController : ViewModel() {
         return profile!!
     }
 
-    private val walletConfig = WalletConfig(
-        walletName = "test_create_wallet_add_uuid_here",
-        walletKey = "8dvfYSt5d1taSd6yJdpjq4emkwsPDDLYxkNFysFD2cZY",
-        walletKeyDerivation = "RAW",
-        walletType = null,
-        storageConfig = null,
-        storageCredentials = null,
-        rekey = null,
-        rekeyDerivationMethod = null
+    private val walletConfig = AskarWalletConfig(
+        dbUrl = "sqlite://:memory:",
+        keyMethod = KeyMethod.DeriveKey(AskarKdfMethod.Argon2i(ArgonLevel.INTERACTIVE)),
+        passKey = "test",
+        profile = "profile"
     )
 
     suspend fun setupProfile(genesisFilePath: String) {
