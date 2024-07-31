@@ -14,7 +14,7 @@ env:
   DOCKER_BUILDKIT: 1
   MAIN_BRANCH: main
 
-  RUST_TOOLCHAIN_VERSION: 1.76.0
+  RUST_TOOLCHAIN_VERSION: 1.79.0
 
 jobs:
 
@@ -114,6 +114,7 @@ jobs:
           branch-main: ${{ env.MAIN_BRANCH }}
           docker-repo-local-name: mediator
       - name: "Publish versioned docker image"
+        if: ${{ needs.workflow-setup.outputs.RELEASE == 'true' || needs.workflow-setup.outputs.PRERELEASE == 'true' }}
         uses: ./.github/actions/publish-image
         with:
           docker-img: ${{ env.DOCKER_IMAGE }}
