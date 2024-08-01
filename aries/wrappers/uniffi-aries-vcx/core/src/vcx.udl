@@ -152,8 +152,8 @@ interface Holder {
     string? get_final_message();
 };
 
-interface EventListener {
-    void on_event(string eventType, string eventData);
+callback interface EventListener {
+    void on_event(string event_type, string event_data);
 };
 
 enum HolderState {

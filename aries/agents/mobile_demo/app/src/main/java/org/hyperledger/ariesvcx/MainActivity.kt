@@ -2,6 +2,7 @@ package org.hyperledger.ariesvcx
 
 import android.os.Bundle
 import android.system.Os
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +24,13 @@ sealed class Destination(val route: String) {
     object Credential : Destination("credential")
 }
 
+class callback : EventListener{
+    override fun onEvent(eventType: String, eventData: String) {
+        Log.d("I", "Woof!, ${eventType}, ${eventData}")
+    }
+
+}
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +42,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
+                    val callback: EventListener = callback()
+                    callback.onEvent("testing1", "testing2")
                     NavigationAppHost(
                         demoController = AppDemoController(),
                         navController = navController,

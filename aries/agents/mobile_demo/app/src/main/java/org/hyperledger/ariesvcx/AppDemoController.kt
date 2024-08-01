@@ -1,10 +1,6 @@
 package org.hyperledger.ariesvcx
 
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +22,9 @@ data class AppUiState(
     val offerReceived: Boolean = false
 )
 
+
+
+
 class AppDemoController : ViewModel() {
     private val httpClient = OkHttpClient()
 
@@ -35,6 +34,8 @@ class AppDemoController : ViewModel() {
 
     private var onConnectionComplete: (connection: Connection) -> Unit = {}
     private var onOfferReceived: () -> Unit = {}
+
+    // Callback Checks
 
     // Expose screen UI state
     private val _state = MutableStateFlow(AppUiState())
