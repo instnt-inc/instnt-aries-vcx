@@ -10,6 +10,7 @@ use aries_framework_vcx::{
     },
     AskarWalletConfig, Url,
 };
+use aries_framework_vcx::callback_service::Processor;
 use log::{debug, info};
 
 #[tokio::main]
@@ -20,6 +21,17 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let host = "localhost";
     let port = 8000;
     let agent_endpoint = Url::parse(&format!("http://{}:{}", host, port))?;
+
+    info!("Setup Callback Services");
+
+    let mut processor = Processor::new();
+     // Set a callback
+    processor.set_callback(|value: i32| {
+        println!("Callback called with value: {}", value);
+    });
+
+    // Process a value, which will trigger the callback
+    processor.process(334);
 
     let framework_config = FrameworkConfig {
         wallet_config: AskarWalletConfig {

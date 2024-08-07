@@ -414,3 +414,32 @@ pub mod invitation_service {
         pub async fn get_invitation(&self) {}
     }
 }
+
+pub mod callback_service {
+    pub type Callback = Box<dyn Fn(i32) + Send + Sync>;
+
+    pub struct Processor {
+        callback: Option<Callback>,
+    }
+
+    impl Processor {
+        pub fn new() -> Self {
+            Processor { callback: None }
+        }
+
+        pub fn set_callback<F>(&mut self, callback: F)
+        where
+            F: Fn(i32) + 'static + Send + Sync,
+        {
+            self.callback = Some(Box::new(callback));
+        }
+
+        pub fn process(&self, value: i32) {
+            if let Some(ref callback) = self.callback {
+                callback(value);
+            }else{
+                print!("callback not setted properly")
+            }
+        }
+    }
+}
