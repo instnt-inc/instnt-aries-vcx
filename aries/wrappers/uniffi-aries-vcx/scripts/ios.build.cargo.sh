@@ -20,48 +20,7 @@
         popd
         
         cp -R ${UNIFFI_ROOT}/core/src/vcx.swift ${UNIFFI_ROOT}/core/src/vcxFFI.* ${IOS_APP_DIR}
-        rm -R ${UNIFFI_ROOT}/core/src/vcx.swift ${UNIFFI_ROOT}/core/src/vcxFFI.*
-    }
-
-    download_and_unzip_if_missed() {
-        expected_directory="$1"
-        url="$2"
-        fname="tmp_$(date +%s)_$expected_directory.zip"
-        if [ ! -d "${expected_directory}" ] ; then
-            echo "Downloading ${GREEN}${url}${RESET} as ${GREEN}${fname}${RESET}"
-            wget -q -O ${fname} "${url}"
-            echo "Unzipping ${GREEN}${fname}${RESET}"
-            unzip -qqo "${fname}"
-            rm "${fname}"
-            echo "${GREEN}Done!${RESET}"
-        else
-            echo "${BLUE}Skipping download ${url}${RESET}. Expected directory ${expected_directory} was found"
-        fi
-    }
-
-    setup_linked_dependencies() {
-        mkdir -p $IOS_BUILD_DEPS_DIR
-        # download deps
-        pushd "${IOS_BUILD_DEPS_DIR}"
-            download_and_unzip_if_missed "openssl_$TARGET_NICKNAME" "https://repo.sovrin.org/ios/libindy/deps/openssl/openssl_$TARGET_NICKNAME.zip"
-            download_and_unzip_if_missed "libsodium_$TARGET_NICKNAME" "https://repo.sovrin.org/ios/libindy/deps/sodium/libsodium_$TARGET_NICKNAME.zip"
-            download_and_unzip_if_missed "libzmq_$TARGET_NICKNAME" "https://repo.sovrin.org/ios/libindy/deps/zmq/libzmq_$TARGET_NICKNAME.zip"
-        popd
-
-        # main env vars that need to be set
-        export OPENSSL_DIR=${IOS_BUILD_DEPS_DIR}/openssl_${TARGET_NICKNAME}
-        export SODIUM_DIR=${IOS_BUILD_DEPS_DIR}/libsodium_${TARGET_NICKNAME}
-        export LIBZMQ_DIR=${IOS_BUILD_DEPS_DIR}/libzmq_${TARGET_NICKNAME}
-
-        # secondary env vars that need to be set
-        export SODIUM_LIB_DIR=${SODIUM_DIR}/lib
-        export SODIUM_INCLUDE_DIR=${SODIUM_DIR}/include
-        export SODIUM_STATIC=1
-        export LIBZMQ_LIB_DIR=${LIBZMQ_DIR}/lib
-        export LIBZMQ_INCLUDE_DIR=${LIBZMQ_DIR}/include
-        export LIBZMQ_PREFIX=${LIBZMQ_DIR}
-        export OPENSSL_LIB_DIR=${OPENSSL_DIR}/lib
-        export OPENSSL_STATIC=1
+        #rm -R ${UNIFFI_ROOT}/core/src/vcx.swift ${UNIFFI_ROOT}/core/src/vcxFFI.*
     }
 
     build_uniffi_for_demo() {
@@ -73,11 +32,27 @@
 
         pushd ${UNIFFI_ROOT}/core
             cargo build --target ${TARGET}
+                    
             cp ${ARIES_VCX_ROOT}/target/${TARGET}/debug/libuniffi_vcx.a ${ABI_PATH}/libuniffi_vcx.a
 
         popd
+
     }
+
+    build_ios_xcframework() {
+ 
+        export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
+        export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
+        export ABI_PATH=${IOS_APP_DIR}/Frameworks
+
+        mv ${UNIFFI_ROOT}/core/src/vcxFFI.modulemap ${UNIFFI_ROOT}/core/src/module.modulemap 
+
+        xcodebuild -create-xcframework -library ${ABI_PATH}/libuniffi_vcx.a -headers ${UNIFFI_ROOT}/core/src/ -output "${ABI_PATH}/vcx.xcframework"
+
+    }
+
 
     generate_bindings
     #setup_linked_dependencies
     build_uniffi_for_demo
+    build_ios_xcframework
