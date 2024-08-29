@@ -31,7 +31,7 @@
         mkdir -p ${ABI_PATH}
 
         pushd ${UNIFFI_ROOT}/core
-            cargo build --target ${TARGET}
+            cargo build --target ${TARGET} --features "aries_vcx_anoncreds/zmq_vendored"
             cp ${ARIES_VCX_ROOT}/target/${TARGET}/debug/libuniffi_vcx.a ${ABI_PATH}/libuniffi_vcx.a
 
         popd

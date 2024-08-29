@@ -71,7 +71,7 @@ build_uniffi_for_demo() {
     mkdir -p ${ABI_PATH}
 
     pushd ${UNIFFI_ROOT}/core
-        cargo ndk -t ${ABI} build
+        cargo ndk -t ${ABI} build --features "aries_vcx_anoncreds/zmq_default"
         cp ${ARIES_VCX_ROOT}/target/${TARGET}/debug/libuniffi_vcx.so ${ABI_PATH}/libuniffi_vcx.so
         cp ${LIBZMQ_LIB_DIR}/libzmq.so ${ABI_PATH}/libzmq.so
     popd
