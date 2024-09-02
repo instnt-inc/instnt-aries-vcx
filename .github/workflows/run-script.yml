@@ -1,0 +1,24 @@
+name: Update Datetime File
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  update-datetime:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python (optional, only if needed for your setup)
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Run the script
+        run: |
+          chmod +x ./create_datetime_file.sh
+          ./create_datetime_file.sh
