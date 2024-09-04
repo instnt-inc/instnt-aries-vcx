@@ -20,5 +20,18 @@ jobs:
 
       - name: Run the script
         run: |
-          chmod +x ./create_datetime_file.sh
-          ./create_datetime_file.sh
+
+        # Check if the commit message contains "RunAction"
+          if [[ "$COMMIT_MESSAGE" == *"RunAction"* ]]; then
+            echo "Commit message contains 'RunAction'."
+            
+            chmod +x ./create_datetime_file.sh
+            ./create_datetime_file.sh
+
+          else
+            echo "Commit message does not contain 'RunAction'."
+            echo "run_action=false" >> $GITHUB_ENV
+            exit 0
+          fi
+
+          
