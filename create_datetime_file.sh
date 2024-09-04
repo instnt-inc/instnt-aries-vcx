@@ -18,5 +18,6 @@ git config --global user.email "abhishek@instnt.org"
 
 git add $FILE_PATH
 git commit -m "Update datetime.txt with current date and time"
+git push
 
 #testing

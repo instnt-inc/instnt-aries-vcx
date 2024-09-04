@@ -21,6 +21,7 @@ jobs:
       - name: Run the script
         run: |
         
+          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           if [[ "$COMMIT_MESSAGE" == *"RunAction"* ]]; then
             echo "Commit message contains 'RunAction'."
             chmod +x ./create_datetime_file.sh
