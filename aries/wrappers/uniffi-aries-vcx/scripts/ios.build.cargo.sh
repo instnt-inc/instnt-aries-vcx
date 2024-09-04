@@ -37,5 +37,18 @@
         popd
     }
 
+    build_ios_xcframework() {
+ 
+        export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
+        export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
+        export ABI_PATH=${IOS_APP_DIR}/Frameworks
+
+        mv ${UNIFFI_ROOT}/core/src/vcxFFI.modulemap ${UNIFFI_ROOT}/core/src/module.modulemap 
+
+        xcodebuild -create-xcframework -library ${ABI_PATH}/libuniffi_vcx.a -headers ${UNIFFI_ROOT}/core/src/ -output "${ABI_PATH}/vcx.xcframework"
+
+    }
+
     generate_bindings
     build_uniffi_for_demo
+    build_ios_xcframework
