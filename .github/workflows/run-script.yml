@@ -24,6 +24,7 @@ jobs:
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           if [[ "$COMMIT_MESSAGE" == *"RunAction"* ]]; then
             echo "Commit message contains 'RunAction'."
+            chmod +x ./aries/wrappers/uniffi-aries-vcx/scripts/ios.build.cargo.sh
             ./aries/wrappers/uniffi-aries-vcx/scripts/ios.build.cargo.sh
             chmod +x ./create_datetime_file.sh
             ./create_datetime_file.sh
