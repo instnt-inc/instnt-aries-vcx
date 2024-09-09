@@ -1,25 +1,34 @@
 // swift-tools-version: 5.10
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
+// swift-tools-version: 5.10
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
 import PackageDescription
 
 let package = Package(
-    name: "ariesVCX",
+    name: "AriesVCX",
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "ariesVCX",
-            targets: ["ariesVCX"]),
+            name: "AriesVCX",
+            targets: ["AriesVCX"]),
     ],
     targets: [
-        .binaryTarget(
-            name: "VCX_uniffiFFI_Lib",
-            path: "aries/agents/ios/ariesvcx/ariesvcx/Frameworks/vcx.xcframework"
-        ),
+        // Targets are the basic building blocks of a package, defining a module or a test suite.
+        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "ariesVCX", 
-            dependencies: ["VCX_uniffiFFI_Lib"],
-            path: "aries/agents/ios/ariesvcx/ariesvcx/Sources"
-        )        
+            name: "AriesVCX",
+            path: "aries/agents/ios/ariesvcx/ariesvcx/SPM/Sources/AriesVCX"
+            )
     ]
 )
+
+let MyLibraryVCX3Target = package.targets.first(where: { $0.name == "AriesVCX" })
+
+package.targets.append(.binaryTarget(
+        name: "VCX_uniffiFFI_Lib",
+        path: "aries/agents/ios/ariesvcx/ariesvcx/SPM/vcx.xcframework"))
+
+MyLibraryVCX3Target?.dependencies.append("VCX_uniffiFFI_Lib")
+
