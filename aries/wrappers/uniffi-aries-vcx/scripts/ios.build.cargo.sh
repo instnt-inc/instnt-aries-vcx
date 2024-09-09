@@ -39,12 +39,29 @@
 
     build_ios_xcframework() {
 
+        #sudo apt-get update
+        #sudo apt-get install libzmq3-dev
+        #sudo apt-get install pkg-config
+        #pkg-config --modversion libzmq
+        #export LIBZMQ_LIB_DIR=/usr/lib/x86_64-linux-gnu
+        #export LIBZMQ_INCLUDE_DIR=/usr/include
+
+        # Update package list
         sudo apt-get update
-        sudo apt-get install libzmq3-dev
-        sudo apt-get install pkg-config
-        pkg-config --modversion libzmq
-        export LIBZMQ_LIB_DIR=/usr/lib/x86_64-linux-gnu
-        export LIBZMQ_INCLUDE_DIR=/usr/include
+
+        # Install necessary packages
+        sudo apt-get install cmake autoconf automake libtool pkg-config git
+
+        # Clone ZeroMQ repository
+        git clone https://github.com/zeromq/libzmq.git vendor/libzmq
+
+        # Build ZeroMQ from source
+        cd vendor/libzmq
+        ./autogen.sh
+        ./configure
+        make
+        # Optional: Install ZeroMQ
+        sudo make install
  
         export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
