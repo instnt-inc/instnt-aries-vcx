@@ -38,6 +38,8 @@
     }
 
     build_ios_xcframework() {
+
+        apt-get install libzmq-dev
  
         export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
