@@ -20,7 +20,7 @@
         sudo apt-get install cmake autoconf automake libtool pkg-config git
 
         # Clone ZeroMQ repository
-        git clone https://github.com/zeromq/libzmq.git vendor/libzmq
+        #git clone https://github.com/zeromq/libzmq.git vendor/libzmq
 
         # Build ZeroMQ from source
         cd vendor/libzmq
@@ -29,7 +29,7 @@
         make
         # Optional: Install ZeroMQ
         sudo make install
-        
+
         export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
 
