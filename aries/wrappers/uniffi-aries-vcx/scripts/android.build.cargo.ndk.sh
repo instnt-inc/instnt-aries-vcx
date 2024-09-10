@@ -13,7 +13,7 @@ ABI="arm64-v8a"
 
 generate_bindings() {
     export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
-    export ANDROID_DEMO_DIR="${ARIES_VCX_ROOT}/aries/agents/mobile_demo"
+    export ANDROID_DEMO_DIR="${ARIES_VCX_ROOT}/aries/agents/android"
 
     pushd "${UNIFFI_ROOT}/core"
                 cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/vcx.udl --language ${LANGUAGE}
@@ -71,7 +71,7 @@ build_uniffi_for_demo() {
     mkdir -p ${ABI_PATH}
 
     pushd ${UNIFFI_ROOT}/core
-        cargo ndk -t ${ABI} build
+        cargo ndk -t ${ABI} build --features "aries_vcx_anoncreds/zmq_default"
         cp ${ARIES_VCX_ROOT}/target/${TARGET}/debug/libuniffi_vcx.so ${ABI_PATH}/libuniffi_vcx.so
         cp ${LIBZMQ_LIB_DIR}/libzmq.so ${ABI_PATH}/libzmq.so
     popd
