@@ -52,6 +52,8 @@
         
         rustup target add aarch64-apple-ios
 
+        cargo install cargo-lipo
+
         pushd "${UNIFFI_ROOT}/core"
             cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/vcx.udl --language ${LANGUAGE}
         popd
