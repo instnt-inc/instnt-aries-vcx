@@ -13,9 +13,10 @@
 
     check_version () {
 
+        # check rust version and set to 1.78.0
         rustc --version
         rustup default 1.78.0
-                rustc --version
+        rustc --version
 
 
     }
@@ -48,6 +49,8 @@
         
         export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
+        
+        rustup target add aarch64-apple-ios
 
         pushd "${UNIFFI_ROOT}/core"
             cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/vcx.udl --language ${LANGUAGE}
