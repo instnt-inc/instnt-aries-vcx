@@ -13,12 +13,12 @@
 
     generate_bindings() {
 
-        sudo apt-get update
-        sudo apt-get install libzmq3-dev
-        sudo apt-get install pkg-config
-        pkg-config --modversion libzmq
-        export LIBZMQ_LIB_DIR=/usr/lib/x86_64-linux-gnu
-        export LIBZMQ_INCLUDE_DIR=/usr/include
+        #sudo apt-get update
+        #sudo apt-get install libzmq3-dev
+        #sudo apt-get install pkg-config
+        #pkg-config --modversion libzmq
+        #export LIBZMQ_LIB_DIR=/usr/lib/x86_64-linux-gnu
+        #export LIBZMQ_INCLUDE_DIR=/usr/include
 
         # # Update package list
         # sudo apt-get update
