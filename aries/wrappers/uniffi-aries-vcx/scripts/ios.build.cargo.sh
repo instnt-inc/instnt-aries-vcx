@@ -58,7 +58,10 @@
             cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/vcx.udl --language ${LANGUAGE}
         popd
         
+        mkdir ${IOS_APP_DIR}/Source
+
         cp -R ${UNIFFI_ROOT}/core/src/vcx.swift ${UNIFFI_ROOT}/core/src/vcxFFI.* ${IOS_APP_DIR}
+        cp -R ${UNIFFI_ROOT}/core/src/vcx.swift ${UNIFFI_ROOT}/core/src/vcxFFI.* ${IOS_APP_DIR}/Source
         rm -R ${UNIFFI_ROOT}/core/src/vcx.swift ${UNIFFI_ROOT}/core/src/vcxFFI.*
     }
 
@@ -93,7 +96,7 @@
 
         #mv ${UNIFFI_ROOT}/core/src/vcxFFI.modulemap ${UNIFFI_ROOT}/core/src/module.modulemap 
 
-        xcodebuild -create-xcframework -library ${ABI_PATH}/libuniffi_vcx.a -headers ${IOS_APP_DIR}/ -output "${ABI_PATH}/vcx.xcframework"
+        xcodebuild -create-xcframework -library ${ABI_PATH}/libuniffi_vcx.a -headers ${IOS_APP_DIR}/Source -output "${ABI_PATH}/vcx.xcframework"
 
     }
 
