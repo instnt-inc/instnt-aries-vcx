@@ -11,6 +11,12 @@
     TARGET_NICKNAME="arm64"
     ABI="iphoneos"
 
+    check_version () {
+
+        rustc --version
+
+    }
+
     generate_bindings() {
 
         #sudo apt-get update
@@ -36,7 +42,7 @@
         # make
         # # Optional: Install ZeroMQ
         # sudo make install
-
+        
         export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
 
@@ -83,6 +89,7 @@
 
     }
 
-    generate_bindings
-    build_uniffi_for_demo
-    build_ios_xcframework
+    check_version
+    #generate_bindings
+    #build_uniffi_for_demo
+    #build_ios_xcframework
