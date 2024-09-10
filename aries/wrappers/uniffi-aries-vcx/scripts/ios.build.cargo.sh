@@ -14,6 +14,7 @@
     check_version () {
 
         rustc --version
+        rustup default 1.78.0
 
     }
 
