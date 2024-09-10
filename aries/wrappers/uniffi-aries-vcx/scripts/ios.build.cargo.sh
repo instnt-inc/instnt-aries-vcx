@@ -93,6 +93,6 @@
     }
 
     check_version
-    #generate_bindings
-    #build_uniffi_for_demo
-    #build_ios_xcframework
+    generate_bindings
+    build_uniffi_for_demo
+    build_ios_xcframework
