@@ -106,18 +106,21 @@
         echo "Release ID: $RELEASE_ID"
         echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
 
-        # Replace with the path to your xcframework file
-        chmod  u+rw ${ARIES_VCX_ROOT}/vcxAPI.swift.zip
-        XCFRAMEWORK_PATH= "${ARIES_VCX_ROOT}/vcxAPI.swift.zip"
-        #${ABI_PATH}/vcx.xcframework.zip
-        
-            # Upload the file to the release
-            curl -s -X POST \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Content-Type: application/zip" \
-            --data-binary @"$XCFRAMEWORK_PATH" \
-            "https://uploads.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID/assets?name=$(basename $XCFRAMEWORK_PATH)"
+        # Define the path to your zip file
+        XCFRAMEWORK_PATH="${ARIES_VCX_ROOT}/vcxAPI.swift.zip"
 
+        # Print for debugging
+        echo "XCFRAMEWORK_PATH=${XCFRAMEWORK_PATH}"
+
+        # Ensure the file has the correct permissions (readable)
+        chmod u+rw "$XCFRAMEWORK_PATH"
+
+        # Upload the file to the release
+        curl -s -X POST \
+        -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+        -H "Content-Type: application/zip" \
+        --data-binary @"$XCFRAMEWORK_PATH" \
+        "https://uploads.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID/assets?name=$(basename "$XCFRAMEWORK_PATH")"
     }
 
     #generate_bindings
