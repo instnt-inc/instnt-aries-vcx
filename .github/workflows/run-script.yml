@@ -18,27 +18,24 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Run the script
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        REPO: ${{ github.repository }}
-        TAG: ${{ github.ref_name }}
+      - name: Install Dependencies
         run: |
-
-          #sudo apt-get update -y
-          #sudo apt-get install -y build-essential pkg-config libsodium-dev libssl-dev libzmq3-dev
-          #sudo snap install --edge --classic just
-
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew update
-          brew install pkg-config libsodium openssl zeromq
-          brew install just
-          brew install jq
+          brew install pkg-config libsodium openssl zeromq just jq
 
+      - name: Set up Rust
+        run: |
           rustc --version
           rustup default 1.78.0
           rustc --version
 
+      - name: Run the script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           if [[ "$COMMIT_MESSAGE" == *"RunAction"* ]]; then
             echo "Commit message contains 'RunAction'."
