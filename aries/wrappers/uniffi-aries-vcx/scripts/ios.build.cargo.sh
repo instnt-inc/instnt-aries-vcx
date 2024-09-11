@@ -11,22 +11,8 @@
     TARGET_NICKNAME="arm64"
     ABI="iphoneos"
 
-    check_version () {
-
-        # check rust version and set to 1.78.0
-        rustc --version
-        rustup default 1.78.0
-        rustc --version
-
-
-    }
-
     generate_bindings() {
 
-        #sudo apt-get update
-        #sudo apt-get install libzmq3-dev
-        #sudo apt-get install pkg-config
-        #pkg-config --modversion libzmq
         #export LIBZMQ_LIB_DIR=/usr/lib/x86_64-linux-gnu
         #export LIBZMQ_INCLUDE_DIR=/usr/include
 
@@ -50,7 +36,7 @@
         export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
         
-        rustup target add aarch64-apple-ios
+        rustup target add ${TARGET}
 
         cargo install cargo-lipo
 
@@ -81,15 +67,6 @@
 
     build_ios_xcframework() {
 
-        #sudo apt-get update
-        #sudo apt-get install libzmq3-dev
-        #sudo apt-get install pkg-config
-        #pkg-config --modversion libzmq
-        #export LIBZMQ_LIB_DIR=/usr/lib/x86_64-linux-gnu
-        #export LIBZMQ_INCLUDE_DIR=/usr/include
-
-        
- 
         export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
         export ABI_PATH=${IOS_APP_DIR}/Frameworks
@@ -98,9 +75,51 @@
 
         xcodebuild -create-xcframework -library ${ABI_PATH}/libuniffi_vcx.a -headers ${IOS_APP_DIR}/Source -output "${ABI_PATH}/vcx.xcframework"
 
+        zip -r ${ABI_PATH}/vcx.xcframework.zip ${ABI_PATH}/vcx.xcframework
+
+        # Remove .a file if it is not required and have large size
+        rm -R ${ABI_PATH}/libuniffi_vcx.a
+        rm -R ${ABI_PATH}/vcx.xcframework
+
     }
 
-    check_version
-    generate_bindings
-    build_uniffi_for_demo
-    build_ios_xcframework
+    release_xcframework() {
+
+        export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
+        export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
+        export ABI_PATH=${IOS_APP_DIR}/Frameworks
+
+        # Replace these with your actual values
+        GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+        REPO=${{ github.repository }}
+        TAG=${{ github.ref_name }}
+        
+        # Create a release
+        RESPONSE=$(curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"tag_name\":\"$TAG\",\"name\":\"Release $TAG\",\"draft\":false,\"prerelease\":false}" \
+            https://api.github.com/repos/$REPO/releases)
+        
+        # Extract the release ID
+        RELEASE_ID=$(echo $RESPONSE | jq -r .id)
+        echo "Release ID: $RELEASE_ID"
+        echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
+
+        # Replace with the path to your xcframework file
+        XCFRAMEWORK_PATH= "vcxAPI.swift.zip"
+        #${ABI_PATH}/vcx.xcframework.zip
+        
+            # Upload the file to the release
+            curl -s -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/zip" \
+            --data-binary @"$XCFRAMEWORK_PATH" \
+            "https://uploads.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID/assets?name=$(basename $XCFRAMEWORK_PATH)"
+
+    }
+
+    #generate_bindings
+    #build_uniffi_for_demo
+    #build_ios_xcframework
+    release_xcframework

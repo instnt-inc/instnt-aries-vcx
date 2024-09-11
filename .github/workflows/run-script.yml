@@ -28,13 +28,12 @@ jobs:
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew update
           brew install pkg-config libsodium openssl zeromq
-          #xcode-select --install
           brew install just
 
+          rustc --version
+          rustup default 1.78.0
+          rustc --version
 
-          #xcode-select --install
-          #cargo install cargo-lipo
-        
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           if [[ "$COMMIT_MESSAGE" == *"RunAction"* ]]; then
             echo "Commit message contains 'RunAction'."
