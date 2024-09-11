@@ -12,11 +12,15 @@ TARGET_NICKNAME="arm64"
 ABI="arm64-v8a"
 
 generate_bindings() {
-    export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx"
+    export FRAMEWORK_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx"
+    export ANDROID_DEMO_DIR="${ARIES_VCX_ROOT}/aries/agents/android"
 
-    pushd "${UNIFFI_ROOT}"
+    pushd "${FRAMEWORK_ROOT}"
                 cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/aries_framework_vcx.udl --language ${LANGUAGE}
     popd
+    
+    cp -R ${FRAMEWORK_ROOT}/src/org/hyperledger/ariesframeworkvcx/aries_framework_vcx.kt ${ANDROID_DEMO_DIR}/app/src/main/java/org/hyperledger/ariesvcx
+    rm -R ${FRAMEWORK_ROOT}/src/org
 }
 
 download_and_unzip_if_missed() {
@@ -61,12 +65,12 @@ setup_linked_dependencies() {
 }
 
 build_uniffi_for_demo() {
-    export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx"
-    export ANDROID_DEMO_DIR="${ARIES_VCX_ROOT}/aries/agents/mobile_demo"
+    export FRAMEWORK_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx"
+    export ANDROID_DEMO_DIR="${ARIES_VCX_ROOT}/aries/agents/android"
     export ABI_PATH=${ANDROID_DEMO_DIR}/app/src/main/jniLibs/${ABI}
     mkdir -p ${ABI_PATH}
 
-    pushd ${UNIFFI_ROOT}
+    pushd ${FRAMEWORK_ROOT}
         cargo ndk -t ${ABI} build
         cp ${ARIES_VCX_ROOT}/target/${TARGET}/debug/libaries_framework_vcx.so ${ABI_PATH}/libaries_framework_vcx.so
         cp ${LIBZMQ_LIB_DIR}/libzmq.so ${ABI_PATH}/libzmq.so

@@ -29,7 +29,7 @@ dictionary FrameworkConfig {
     string agent_label;
 };
 interface AriesFrameworkVCX {
-    constructor();
+    constructor(FrameworkConfig framework_config);
 };
 
 dictionary ConnectionServiceConfig {
