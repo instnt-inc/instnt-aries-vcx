@@ -35,6 +35,11 @@ jobs:
           rustup default 1.78.0
           rustc --version
 
+          # Replace these with your actual values
+        GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+        REPO=${{ github.repository }}
+        TAG=${{ github.ref_name }}
+
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           if [[ "$COMMIT_MESSAGE" == *"RunAction"* ]]; then
             echo "Commit message contains 'RunAction'."

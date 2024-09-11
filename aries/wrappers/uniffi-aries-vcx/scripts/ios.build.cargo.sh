@@ -90,9 +90,9 @@
         export ABI_PATH=${IOS_APP_DIR}/Frameworks
 
         # Replace these with your actual values
-        GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
-        REPO=${{ github.repository }}
-        TAG=${{ github.ref_name }}
+        #GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+        #REPO=${{ github.repository }}
+        #TAG=${{ github.ref_name }}
         
         # Create a release
         RESPONSE=$(curl -s -X POST \
