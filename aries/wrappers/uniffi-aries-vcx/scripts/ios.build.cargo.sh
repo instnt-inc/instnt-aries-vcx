@@ -107,7 +107,7 @@
         echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
 
         # Replace with the path to your xcframework file
-        export XCFRAMEWORK_PATH= "${ARIES_VCX_ROOT}vcxAPI.swift.zip"
+        export XCFRAMEWORK_PATH= "${ARIES_VCX_ROOT}/vcxAPI.swift.zip"
         #${ABI_PATH}/vcx.xcframework.zip
         
             # Upload the file to the release
