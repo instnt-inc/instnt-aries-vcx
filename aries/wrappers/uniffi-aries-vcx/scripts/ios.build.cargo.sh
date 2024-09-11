@@ -117,10 +117,10 @@
 
         # Upload the file to the release
         curl -s -X POST \
-        -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+        -H "Authorization: token ${{ $GITHUB_TOKEN }}" \
         -H "Content-Type: application/zip" \
         --data-binary @"$XCFRAMEWORK_PATH" \
-        "https://uploads.github.com/repos/${{ github.repository }}/releases/$RELEASE_ID/assets?name=$(basename "$XCFRAMEWORK_PATH")"
+        "https://uploads.github.com/repos/${{ $REPO }}/releases/$RELEASE_ID/assets?name=$(basename "$XCFRAMEWORK_PATH")"
     }
 
     #generate_bindings
