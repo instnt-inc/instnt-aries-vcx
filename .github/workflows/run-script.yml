@@ -19,6 +19,10 @@ jobs:
           python-version: '3.x'
 
       - name: Run the script
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPO: ${{ github.repository }}
+        TAG: ${{ github.ref_name }}
         run: |
 
           #sudo apt-get update -y
@@ -34,10 +38,6 @@ jobs:
           rustc --version
           rustup default 1.78.0
           rustc --version
-
-        GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
-        REPO=${{ github.repository }}
-        TAG=${{ github.ref_name }}
 
           COMMIT_MESSAGE=$(git log -1 --pretty=%B)
           if [[ "$COMMIT_MESSAGE" == *"RunAction"* ]]; then
