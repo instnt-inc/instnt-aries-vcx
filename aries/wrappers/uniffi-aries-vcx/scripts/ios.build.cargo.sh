@@ -115,6 +115,7 @@
         # Ensure the file has the correct permissions (readable)
         chmod u+rw "$XCFRAMEWORK_PATH"
 
+
         # Upload the file to the release
         curl -s -X POST \
         -H "Authorization: token $GITHUB_TOKEN" \
