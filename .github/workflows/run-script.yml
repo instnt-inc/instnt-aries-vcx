@@ -3,7 +3,7 @@ name: Update Datetime File
 on:
   push:
     branches:
-      - abhishek_GithubAction
+      - abhishek_GithubAction2
 
 jobs:
   update-datetime:
