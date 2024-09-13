@@ -124,7 +124,7 @@
         --data-binary @"$XCFRAMEWORK_PATH" \
         "https://uploads.github.com/repos/$REPO/releases/$RELEASE_ID/assets?name=$(basename "$XCFRAMEWORK_PATH")"
 
-        rm -R ${ABI_PATH}/vcx.xcframework
+        rm -R ${ABI_PATH}/vcx.xcframework.zip
     }
 
     generate_bindings
