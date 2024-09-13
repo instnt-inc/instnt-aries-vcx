@@ -107,7 +107,8 @@
         echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
 
         # Define the path to your zip file
-        XCFRAMEWORK_PATH="${ARIES_VCX_ROOT}/vcxAPI.swift.zip"
+        #XCFRAMEWORK_PATH="${ARIES_VCX_ROOT}/vcxAPI.swift.zip"
+        XCFRAMEWORK_PATH="${ABI_PATH}/vcx.xcframework.zip"
 
         # Print for debugging
         echo "XCFRAMEWORK_PATH=${XCFRAMEWORK_PATH}"
@@ -122,6 +123,8 @@
         -H "Content-Type: application/zip" \
         --data-binary @"$XCFRAMEWORK_PATH" \
         "https://uploads.github.com/repos/$REPO/releases/$RELEASE_ID/assets?name=$(basename "$XCFRAMEWORK_PATH")"
+
+        rm -R ${ABI_PATH}/vcx.xcframework
     }
 
     #generate_bindings
