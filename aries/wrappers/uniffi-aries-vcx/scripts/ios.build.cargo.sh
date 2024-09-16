@@ -95,16 +95,17 @@
         #TAG=${{ github.ref_name }}
         
         # Create a release
-        RESPONSE=$(curl -s -X POST \
-            -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            -d "{\"tag_name\":\"$TAG\",\"name\":\"Release $TAG\",\"draft\":false,\"prerelease\":false}" \
-            https://api.github.com/repos/$REPO/releases)
+        
+        # RESPONSE=$(curl -s -X POST \
+        #     -H "Authorization: token $GITHUB_TOKEN" \
+        #     -H "Accept: application/vnd.github.v3+json" \
+        #     -d "{\"tag_name\":\"$TAG\",\"name\":\"Release $TAG\",\"draft\":false,\"prerelease\":false}" \
+        #     https://api.github.com/repos/$REPO/releases)
         
         # Extract the release ID
-        RELEASE_ID=$(echo $RESPONSE | jq -r .id)
-        echo "Release ID: $RELEASE_ID"
-        echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
+        #RELEASE_ID=$(echo $RESPONSE | jq -r .id)
+        #echo "Release ID: $RELEASE_ID"
+        #echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
 
         # Define the path to your zip file
         #XCFRAMEWORK_PATH="${ARIES_VCX_ROOT}/vcxAPI.swift.zip"
@@ -120,7 +121,7 @@
         ASSET_NAME=$(basename "$XCFRAMEWORK_PATH")
 
         # Fetch the list of assets for the release
-        ASSET_URL="https://api.github.com/repos/$REPO/releases/$RELEASE_ID/assets"
+        ASSET_URL="https://api.github.com/repos/$REPO/releases/$TAG/assets"
         ASSETS_JSON=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$ASSET_URL")
 
         # Extract asset ID(s) of the existing asset with the same name
@@ -133,11 +134,17 @@
         done
 
         # Upload the file to the release
-        curl -s -X POST \
-        -H "Authorization: token $GITHUB_TOKEN" \
-        -H "Content-Type: application/zip" \
-        --data-binary @"$XCFRAMEWORK_PATH" \
-        "https://uploads.github.com/repos/$REPO/releases/$RELEASE_ID/assets?name=$(basename "$XCFRAMEWORK_PATH")"
+        # curl -s -X POST \
+        # -H "Authorization: token $GITHUB_TOKEN" \
+        # -H "Content-Type: application/zip" \
+        # --data-binary @"$XCFRAMEWORK_PATH" \
+        # "https://uploads.github.com/repos/$REPO/releases/$RELEASE_ID/assets?name=$(basename "$XCFRAMEWORK_PATH")"
+
+        RESPONSE=$(curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"tag_name\":\"$TAG\",\"name\":\"Release $TAG\",\"draft\":false,\"prerelease\":false}" \
+            https://api.github.com/repos/$REPO/releases)
 
         rm -R ${ABI_PATH}/vcx.xcframework.zip
 
