@@ -36,14 +36,21 @@ jobs:
           REPO: ${{ github.repository }}
           TAG: ${{ github.ref_name }}
         run: |
-          COMMIT_MESSAGE=$(git log -1 --pretty=%B)
-          if [[ "$COMMIT_MESSAGE" == *"RunAction"* ]]; then
+          #COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+          #if [[ "$COMMIT_MESSAGE" == *"RunAction"* ]]; then
             echo "Commit message contains 'RunAction'."
             chmod +x ./aries/wrappers/uniffi-aries-vcx/scripts/ios.build.cargo.sh
             ./aries/wrappers/uniffi-aries-vcx/scripts/ios.build.cargo.sh
             chmod +x ./create_datetime_file.sh
             ./create_datetime_file.sh
-          else
-            echo "Commit message does not contain 'RunAction'."
-            exit 0
-          fi
+          #else
+            #echo "Commit message does not contain 'RunAction'."
+            #exit 0
+          #fi
+
+          #git config --global user.name "abhishek"
+          #git config --global user.email "abhishek@instnt.org"
+
+          #git add -A
+          #git commit -m "Update datetime.txt with current date and time"
+          #git push

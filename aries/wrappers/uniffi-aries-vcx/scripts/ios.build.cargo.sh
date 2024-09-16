@@ -116,6 +116,21 @@
         # Ensure the file has the correct permissions (readable)
         chmod u+rw "$XCFRAMEWORK_PATH"
 
+        # Get the name of the file to be uploaded
+        ASSET_NAME=$(basename "$XCFRAMEWORK_PATH")
+
+        # Fetch the list of assets for the release
+        ASSET_URL="https://api.github.com/repos/$REPO/releases/$RELEASE_ID/assets"
+        ASSETS_JSON=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$ASSET_URL")
+
+        # Extract asset ID(s) of the existing asset with the same name
+        ASSET_IDS=$(echo "$ASSETS_JSON" | jq -r ".[] | select(.name == \"$ASSET_NAME\") | .id")
+
+        # Delete the existing asset(s)
+        for ASSET_ID in $ASSET_IDS; do
+        echo "Deleting existing asset with ID: $ASSET_ID"
+        curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/assets/$ASSET_ID"
+        done
 
         # Upload the file to the release
         curl -s -X POST \
@@ -125,6 +140,9 @@
         "https://uploads.github.com/repos/$REPO/releases/$RELEASE_ID/assets?name=$(basename "$XCFRAMEWORK_PATH")"
 
         rm -R ${ABI_PATH}/vcx.xcframework.zip
+
+        echo "File uploaded"
+        
     }
 
     generate_bindings
