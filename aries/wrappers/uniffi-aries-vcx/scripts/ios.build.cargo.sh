@@ -44,7 +44,7 @@
             cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/vcx.udl --language ${LANGUAGE}
         popd
         
-        mkdir ${IOS_APP_DIR}/Source
+        #mkdir ${IOS_APP_DIR}/Source
 
         cp -R ${UNIFFI_ROOT}/core/src/vcx.swift ${UNIFFI_ROOT}/core/src/vcxFFI.* ${IOS_APP_DIR}
         cp -R ${UNIFFI_ROOT}/core/src/vcx.swift ${UNIFFI_ROOT}/core/src/vcxFFI.* ${IOS_APP_DIR}/Source
@@ -142,7 +142,7 @@
         rm -R ${ABI_PATH}/vcx.xcframework.zip
 
         echo "File uploaded"
-        
+
     }
 
     generate_bindings
