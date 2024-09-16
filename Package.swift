@@ -28,7 +28,9 @@ let MyLibraryVCX3Target = package.targets.first(where: { $0.name == "AriesVCX" }
 
 package.targets.append(.binaryTarget(
         name: "VCX_uniffiFFI_Lib",
-        path: "aries/agents/ios/ariesvcx/ariesvcx/SPM/vcx.xcframework"))
+        path: "https://github.com/instnt-inc/instnt-aries-vcx/releases/download/abhishek_GithubAction2/vcx.xcframework.zip"))
+
+//#path: "aries/agents/ios/ariesvcx/ariesvcx/SPM/vcx.xcframework"))
 
 MyLibraryVCX3Target?.dependencies.append("VCX_uniffiFFI_Lib")
 
