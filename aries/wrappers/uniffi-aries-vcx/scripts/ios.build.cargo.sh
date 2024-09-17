@@ -75,7 +75,10 @@
 
         xcodebuild -create-xcframework -library ${ABI_PATH}/libuniffi_vcx.a -headers ${IOS_APP_DIR}/Source -output "${ABI_PATH}/vcx.xcframework"
 
-        zip -r ${ABI_PATH}/vcx.xcframework.zip ${ABI_PATH}/vcx.xcframework
+        #zip -r ${ABI_PATH}/vcx.xcframework.zip ${ABI_PATH}/vcx.xcframework
+
+        cd ${ABI_PATH}
+        zip -r vcx.xcframework.zip vcx.xcframework
 
         # Remove .a file if it is not required and have large size
         rm -R ${ABI_PATH}/libuniffi_vcx.a
@@ -89,26 +92,6 @@
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
         export ABI_PATH=${IOS_APP_DIR}/Frameworks
 
-        # Replace these with your actual values
-        #GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
-        #REPO=${{ github.repository }}
-        #TAG=${{ github.ref_name }}
-        
-        # Create a release
-        
-        # RESPONSE=$(curl -s -X POST \
-        #     -H "Authorization: token $GITHUB_TOKEN" \
-        #     -H "Accept: application/vnd.github.v3+json" \
-        #     -d "{\"tag_name\":\"$TAG\",\"name\":\"Release $TAG\",\"draft\":false,\"prerelease\":false}" \
-        #     https://api.github.com/repos/$REPO/releases)
-        
-        # Extract the release ID
-        #RELEASE_ID=$(echo $RESPONSE | jq -r .id)
-        #echo "Release ID: $RELEASE_ID"
-        #echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
-
-        # Define the path to your zip file
-        #XCFRAMEWORK_PATH="${ARIES_VCX_ROOT}/vcxAPI.swift.zip"
         XCFRAMEWORK_PATH="${ABI_PATH}/vcx.xcframework.zip"
 
         # Print for debugging
@@ -183,35 +166,6 @@
         echo "Release deletion complete."
         fi
 
-        # echo "Found release ID: $RELEASE_ID"
-
-        # # Fetch all assets for the release
-        # ASSET_URL="https://api.github.com/repos/$REPO/releases/$RELEASE_ID/assets"
-        # ASSETS_JSON=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$ASSET_URL")
-
-        # # Check if assets are available
-        # if [ "$(echo "$ASSETS_JSON" | jq -r '.[] | length')" -eq 0 ]; then
-        # echo "No assets found for release ID: $RELEASE_ID"
-        # exit 1
-        # fi
-
-        # # List all assets
-        # echo "Assets for release ID $RELEASE_ID:"
-        # echo "$ASSETS_JSON" | jq -r '.[] | "\(.id): \(.name)"'
-
-        # # Extract asset ID(s) of the asset with the same name
-        # ASSET_IDS=$(echo "$ASSETS_JSON" | jq -r ".[] | select(.name == \"$ASSET_NAME\") | .id")
-
-        # if [ -z "$ASSET_IDS" ]; then
-        #     echo "No asset found with name: $ASSET_NAME"
-        # else
-        #     # Delete the existing asset(s)
-        #     for ASSET_ID in $ASSET_IDS; do
-        #     echo "Deleting existing asset with ID: $ASSET_ID"
-        #     curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/assets/$ASSET_ID"
-        #     done
-        # fi
-
         echo "Asset delete process complete."
 
     }
@@ -260,8 +214,63 @@
 
     }
 
-    generate_bindings
-    build_uniffi_for_demo
-    build_ios_xcframework
-    delete_existing_xcframework
-    upload_framework
+    checksum() {
+        
+
+set -e
+
+# Variables
+URL="https://github.com/instnt-inc/instnt-aries-vcx/releases/download/abhishek_GithubAction2/vcx.xcframework.zip"  # Replace with your URL
+FILE_NAME="vcx.xcframework.zip"  # Name of the downloaded file
+
+# Function to display usage information
+usage() {
+    echo "Usage: $0 -u <url> -f <file_name>"
+    exit 1
+}
+
+# Parse command-line arguments
+while getopts "u:f:" opt; do
+    case ${opt} in
+        u )
+            URL=$OPTARG
+            ;;
+        f )
+            FILE_NAME=$OPTARG
+            ;;
+        * )
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND -1))
+
+# Check if URL and FILE_NAME are provided
+if [ -z "$URL" ] || [ -z "$FILE_NAME" ]; then
+    usage
+fi
+
+# Download the file
+echo "Downloading file from $URL..."
+curl -O "$URL"
+
+# Verify if the file was downloaded successfully
+if [ ! -f "$FILE_NAME" ]; then
+    echo "Error: File $FILE_NAME not found after download."
+    exit 1
+fi
+
+# Compute the SHA-256 checksum
+CHECKSUM=$(shasum -a 256 "$FILE_NAME" | awk '{ print $1 }')
+
+# Output the checksum
+echo "Checksum for $FILE_NAME: $CHECKSUM"
+    }
+
+    # generate_bindings
+    # build_uniffi_for_demo
+    # build_ios_xcframework
+    # delete_existing_xcframework
+    # upload_framework
+
+    checksum

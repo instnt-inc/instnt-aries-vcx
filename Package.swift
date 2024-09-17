@@ -7,30 +7,38 @@
 import PackageDescription
 
 let package = Package(
-    name: "AriesVCX",
+    name: "InstntAriesVCX",
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "AriesVCX",
-            targets: ["AriesVCX"]),
+            name: "InstntAriesVCX",
+            targets: ["InstntAriesVCX"]),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "AriesVCX",
-            path: "aries/agents/ios/ariesvcx/ariesvcx/SPM/Sources/AriesVCX"
-            )
+            name: "InstntAriesVCX",
+            path: "aries/agents/ios/ariesvcx/ariesvcx/Source/"
+            ),
+            .binaryTarget(
+        name: "VCX_uniffiFFI_Lib",
+        url: "https://github.com/instnt-inc/instnt-aries-vcx/releases/download/abhishek_GithubAction2/vcx.xcframework.zip",
+        checksum: "c8964e8a20c2e74199cf40848b7b14afc95a4f3dcae80a4dba974acf54d253ac"
+        )
     ]
 )
 
-let MyLibraryVCX3Target = package.targets.first(where: { $0.name == "AriesVCX" })
+let AriesVCXTarget = package.targets.first(where: { $0.name == "InstntAriesVCX" })
 
-package.targets.append(.binaryTarget(
-        name: "VCX_uniffiFFI_Lib",
-        path: "https://github.com/instnt-inc/instnt-aries-vcx/releases/download/abhishek_GithubAction2/vcx.xcframework.zip"))
+// package.targets.append(.binaryTarget(
+//         name: "VCX_uniffiFFI_Lib",
+//         url: "https://github.com/instnt-inc/instnt-aries-vcx/releases/download/abhishek_GithubAction2/vcx.xcframework.zip",
+//         checksum: "c8964e8a20c2e74199cf40848b7b14afc95a4f3dcae80a4dba974acf54d253ac"
+//         ))
 
+//checksum: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 //#path: "aries/agents/ios/ariesvcx/ariesvcx/SPM/vcx.xcframework"))
 
-MyLibraryVCX3Target?.dependencies.append("VCX_uniffiFFI_Lib")
+AriesVCXTarget?.dependencies.append("VCX_uniffiFFI_Lib")
 
