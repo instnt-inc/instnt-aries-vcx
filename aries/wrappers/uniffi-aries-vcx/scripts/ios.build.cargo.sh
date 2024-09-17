@@ -179,8 +179,7 @@
 
         # Delete the release
         echo "Deleting release with ID: $RELEASE_ID"
-        curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/$RELEASE_ID"
-
+        RES=$(curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/$RELEASE_ID")
         echo "Release deletion complete."
         fi
 
@@ -231,7 +230,7 @@
             -d "{\"tag_name\":\"$TAG\",\"name\":\"Release $TAG\",\"draft\":false,\"prerelease\":false}" \
             https://api.github.com/repos/$REPO/releases)
         
-        Extract the release ID
+        #Extract the release ID
         RELEASE_ID=$(echo $RESPONSE | jq -r .id)
         echo "Release ID: $RELEASE_ID"
         echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
