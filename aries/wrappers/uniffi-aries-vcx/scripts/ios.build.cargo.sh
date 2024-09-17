@@ -203,7 +203,7 @@
             for ASSET_ID in $ASSET_IDS; do
             echo "Deleting existing asset with ID: $ASSET_ID"
             curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/assets/$ASSET_ID"
-        
+            done
         fi
 
         echo "Asset delete process complete."
