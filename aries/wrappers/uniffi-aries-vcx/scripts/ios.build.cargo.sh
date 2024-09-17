@@ -197,15 +197,14 @@
         ASSET_IDS=$(echo "$ASSETS_JSON" | jq -r ".[] | select(.name == \"$ASSET_NAME\") | .id")
 
         if [ -z "$ASSET_IDS" ]; then
-        echo "No asset found with name: $ASSET_NAME"
-        exit 1
+            echo "No asset found with name: $ASSET_NAME"
+        else
+            # Delete the existing asset(s)
+            for ASSET_ID in $ASSET_IDS; do
+            echo "Deleting existing asset with ID: $ASSET_ID"
+            curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/assets/$ASSET_ID"
+        
         fi
-
-        # Delete the existing asset(s)
-        for ASSET_ID in $ASSET_IDS; do
-        echo "Deleting existing asset with ID: $ASSET_ID"
-        curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/assets/$ASSET_ID"
-        done
 
         echo "Asset delete process complete."
 
