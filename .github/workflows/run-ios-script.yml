@@ -34,3 +34,8 @@ jobs:
             echo "executing ios build"
             chmod +x ./aries/wrappers/uniffi-aries-vcx/scripts/ios.build.cargo.sh
             ./aries/wrappers/uniffi-aries-vcx/scripts/ios.build.cargo.sh
+            git config --global user.name "abhishek"
+            git config --global user.email "abhishek@instnt.org"
+            git add -A
+            git commit -m "Updating iOS swift API files"
+            git push
