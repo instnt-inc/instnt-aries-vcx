@@ -217,60 +217,60 @@
     checksum() {
         
 
-set -e
+        set -e
 
-# Variables
-URL="https://github.com/instnt-inc/instnt-aries-vcx/releases/download/abhishek_GithubAction2/vcx.xcframework.zip"  # Replace with your URL
-FILE_NAME="vcx.xcframework.zip"  # Name of the downloaded file
+        # Variables
+        URL="https://github.com/instnt-inc/instnt-aries-vcx/releases/download/abhishek_GithubAction2/vcx.xcframework.zip"  # Replace with your URL
+        FILE_NAME="vcx.xcframework.zip"  # Name of the downloaded file
 
-# Function to display usage information
-usage() {
-    echo "Usage: $0 -u <url> -f <file_name>"
-    exit 1
-}
+        # Function to display usage information
+        usage() {
+            echo "Usage: $0 -u <url> -f <file_name>"
+            exit 1
+        }
 
-# Parse command-line arguments
-while getopts "u:f:" opt; do
-    case ${opt} in
-        u )
-            URL=$OPTARG
-            ;;
-        f )
-            FILE_NAME=$OPTARG
-            ;;
-        * )
+        # Parse command-line arguments
+        while getopts "u:f:" opt; do
+            case ${opt} in
+                u )
+                    URL=$OPTARG
+                    ;;
+                f )
+                    FILE_NAME=$OPTARG
+                    ;;
+                * )
+                    usage
+                    ;;
+            esac
+        done
+        shift $((OPTIND -1))
+
+        # Check if URL and FILE_NAME are provided
+        if [ -z "$URL" ] || [ -z "$FILE_NAME" ]; then
             usage
-            ;;
-    esac
-done
-shift $((OPTIND -1))
+        fi
 
-# Check if URL and FILE_NAME are provided
-if [ -z "$URL" ] || [ -z "$FILE_NAME" ]; then
-    usage
-fi
+        # Download the file
+        echo "Downloading file from $URL..."
+        curl -O "$URL"
 
-# Download the file
-echo "Downloading file from $URL..."
-curl -O "$URL"
+        # Verify if the file was downloaded successfully
+        if [ ! -f "$FILE_NAME" ]; then
+            echo "Error: File $FILE_NAME not found after download."
+            exit 1
+        fi
 
-# Verify if the file was downloaded successfully
-if [ ! -f "$FILE_NAME" ]; then
-    echo "Error: File $FILE_NAME not found after download."
-    exit 1
-fi
+        # Compute the SHA-256 checksum
+        CHECKSUM=$(shasum -a 256 "$FILE_NAME" | awk '{ print $1 }')
 
-# Compute the SHA-256 checksum
-CHECKSUM=$(shasum -a 256 "$FILE_NAME" | awk '{ print $1 }')
-
-# Output the checksum
-echo "Checksum for $FILE_NAME: $CHECKSUM"
+        # Output the checksum
+        echo "Checksum for $FILE_NAME: $CHECKSUM"
     }
 
-    # generate_bindings
-    # build_uniffi_for_demo
-    # build_ios_xcframework
-    # delete_existing_xcframework
-    # upload_framework
+    generate_bindings
+    build_uniffi_for_demo
+    build_ios_xcframework
+    delete_existing_xcframework
+    upload_framework
 
-    checksum
+    #checksum
