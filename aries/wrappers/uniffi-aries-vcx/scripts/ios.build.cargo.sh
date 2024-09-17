@@ -152,7 +152,14 @@
 
     }
 
-    generate_bindings
-    build_uniffi_for_demo
-    build_ios_xcframework
-    release_xcframework
+    testing_method() {
+        ASSET_URL="https://api.github.com/repos/$REPO/releases/tags/$TAG/assets"
+        ASSETS_JSON=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$ASSET_URL")
+    }
+
+    #generate_bindings
+    #build_uniffi_for_demo
+    #build_ios_xcframework
+    #release_xcframework
+
+    testing_method
