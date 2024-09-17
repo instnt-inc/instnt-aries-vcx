@@ -13,22 +13,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python (optional, only if needed for your setup)
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.x'
+      # - name: Install Dependencies
+      #   run: |
+      #     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      #     brew update
+      #     brew install pkg-config libsodium openssl zeromq just jq
 
-      - name: Install Dependencies
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-          brew update
-          brew install pkg-config libsodium openssl zeromq just jq
-
-      - name: Set up Rust
-        run: |
-          rustc --version
-          rustup default 1.78.0
-          rustc --version
+      # - name: Set up Rust
+      #   run: |
+      #     rustc --version
+      #     rustup default 1.78.0
+      #     rustc --version
 
       - name: Run the script
         env:

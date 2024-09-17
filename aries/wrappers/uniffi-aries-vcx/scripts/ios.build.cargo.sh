@@ -153,8 +153,52 @@
     }
 
     testing_method() {
-        ASSET_URL="https://api.github.com/repos/$REPO/releases/tags/$TAG/assets"
+        #ASSET_URL="https://api.github.com/repos/$REPO/releases/tags/$TAG/assets"
+        #ASSETS_JSON=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$ASSET_URL")
+
+        # Variables
+        ASSET_NAME="vcx.xcframework.zip"
+
+        # Fetch the release ID by tag
+        RELEASE_ID=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/tags/$TAG" | jq -r '.id')
+
+        if [ "$RELEASE_ID" == "null" ]; then
+        echo "Release not found for tag: $TAG"
+        exit 1
+        fi
+
+        echo "Found release ID: $RELEASE_ID"
+
+        # Fetch all assets for the release
+        ASSET_URL="https://api.github.com/repos/$REPO/releases/$RELEASE_ID/assets"
         ASSETS_JSON=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$ASSET_URL")
+
+        # Check if assets are available
+        if [ "$(echo "$ASSETS_JSON" | jq -r '.[] | length')" -eq 0 ]; then
+        echo "No assets found for release ID: $RELEASE_ID"
+        exit 1
+        fi
+
+        # List all assets
+        echo "Assets for release ID $RELEASE_ID:"
+        echo "$ASSETS_JSON" | jq -r '.[] | "\(.id): \(.name)"'
+
+        # Extract asset ID(s) of the asset with the same name
+        ASSET_IDS=$(echo "$ASSETS_JSON" | jq -r ".[] | select(.name == \"$ASSET_NAME\") | .id")
+
+        if [ -z "$ASSET_IDS" ]; then
+        echo "No asset found with name: $ASSET_NAME"
+        exit 1
+        fi
+
+        # Delete the existing asset(s)
+        for ASSET_ID in $ASSET_IDS; do
+        echo "Deleting existing asset with ID: $ASSET_ID"
+        curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/assets/$ASSET_ID"
+        done
+
+        echo "Asset deletion complete."
+
     }
 
     #generate_bindings
