@@ -83,7 +83,7 @@
 
     }
 
-    release_xcframework() {
+    release_xcframework_backup() {
 
         export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
@@ -152,12 +152,22 @@
 
     }
 
-    testing_method() {
-        #ASSET_URL="https://api.github.com/repos/$REPO/releases/tags/$TAG/assets"
-        #ASSETS_JSON=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$ASSET_URL")
+    delete_existing_xcframework() {
+        
+        export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
+        export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
+        export ABI_PATH=${IOS_APP_DIR}/Frameworks
 
-        # Variables
-        ASSET_NAME="vcx.xcframework.zip"
+        XCFRAMEWORK_PATH="${ABI_PATH}/vcx.xcframework.zip"
+
+        # Print for debugging
+        echo "XCFRAMEWORK_PATH=${XCFRAMEWORK_PATH}"
+
+        # Ensure the file has the correct permissions (readable)
+        chmod u+rw "$XCFRAMEWORK_PATH"
+
+        # Get the name of the file to be uploaded
+        ASSET_NAME=$(basename "$XCFRAMEWORK_PATH")
 
         # Fetch the release ID by tag
         RELEASE_ID=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/tags/$TAG" | jq -r '.id')
@@ -197,13 +207,52 @@
         curl -s -X DELETE -H "Authorization: token $GITHUB_TOKEN" "https://api.github.com/repos/$REPO/releases/assets/$ASSET_ID"
         done
 
-        echo "Asset deletion complete."
+        echo "Asset delete process complete."
 
     }
 
-    #generate_bindings
-    #build_uniffi_for_demo
-    #build_ios_xcframework
-    #release_xcframework
+    upload_framework() {
 
-    testing_method
+        export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
+        export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
+        export ABI_PATH=${IOS_APP_DIR}/Frameworks
+
+        # Create a release
+        
+        RESPONSE=$(curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d "{\"tag_name\":\"$TAG\",\"name\":\"Release $TAG\",\"draft\":false,\"prerelease\":false}" \
+            https://api.github.com/repos/$REPO/releases)
+        
+        Extract the release ID
+        RELEASE_ID=$(echo $RESPONSE | jq -r .id)
+        echo "Release ID: $RELEASE_ID"
+        echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
+
+        # Define the path to your zip file
+        XCFRAMEWORK_PATH="${ABI_PATH}/vcx.xcframework.zip"
+
+        # Print for debugging
+        echo "XCFRAMEWORK_PATH=${XCFRAMEWORK_PATH}"
+
+        # Ensure the file has the correct permissions (readable)
+        chmod u+rw "$XCFRAMEWORK_PATH"
+
+        # Get the name of the file to be uploaded
+        ASSET_NAME=$(basename "$XCFRAMEWORK_PATH")
+
+        # Upload the file to the release
+        curl -s -X POST \
+        -H "Authorization: token $GITHUB_TOKEN" \
+        -H "Content-Type: application/zip" \
+        --data-binary @"$XCFRAMEWORK_PATH" \
+        "https://uploads.github.com/repos/$REPO/releases/$RELEASE_ID/assets?name=$(basename "$XCFRAMEWORK_PATH")"
+
+    }
+
+    generate_bindings
+    build_uniffi_for_demo
+    build_ios_xcframework
+    delete_existing_xcframework
+    upload_framework
