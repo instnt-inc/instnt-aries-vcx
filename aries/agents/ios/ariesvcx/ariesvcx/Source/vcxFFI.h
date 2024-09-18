@@ -46,187 +46,191 @@ typedef struct RustCallStatus {
 // ⚠️ increment the version suffix in all instances of UNIFFI_SHARED_HEADER_V4 in this file.           ⚠️
 #endif // def UNIFFI_SHARED_H
 
-void ffi_vcx_743a_ProfileHolder_object_free(
+void ffi_vcx_cb32_ProfileHolder_object_free(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-void ffi_vcx_743a_Connection_object_free(
+void ffi_vcx_cb32_Connection_object_free(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Connection_get_state(
+RustBuffer vcx_cb32_Connection_get_state(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Connection_pairwise_info(
+RustBuffer vcx_cb32_Connection_pairwise_info(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-void vcx_743a_Connection_accept_invitation(
+void vcx_cb32_Connection_accept_invitation(
       void*_Nonnull ptr,void*_Nonnull profile,RustBuffer invitation,
     RustCallStatus *_Nonnull out_status
     );
-void vcx_743a_Connection_handle_request(
+void vcx_cb32_Connection_handle_request(
       void*_Nonnull ptr,void*_Nonnull profile,RustBuffer request,RustBuffer service_endpoint,RustBuffer routing_keys,
     RustCallStatus *_Nonnull out_status
     );
-void vcx_743a_Connection_handle_response(
+void vcx_cb32_Connection_handle_response(
       void*_Nonnull ptr,void*_Nonnull profile,RustBuffer response,
     RustCallStatus *_Nonnull out_status
     );
-void vcx_743a_Connection_send_request(
+void vcx_cb32_Connection_send_request(
       void*_Nonnull ptr,void*_Nonnull profile,RustBuffer service_endpoint,RustBuffer routing_keys,
     RustCallStatus *_Nonnull out_status
     );
-void vcx_743a_Connection_send_response(
+void vcx_cb32_Connection_send_response(
       void*_Nonnull ptr,void*_Nonnull profile,
     RustCallStatus *_Nonnull out_status
     );
-void vcx_743a_Connection_send_ack(
+void vcx_cb32_Connection_send_ack(
       void*_Nonnull ptr,void*_Nonnull profile,
     RustCallStatus *_Nonnull out_status
     );
-void vcx_743a_Connection_send_message(
+void vcx_cb32_Connection_send_message(
       void*_Nonnull ptr,void*_Nonnull profile,RustBuffer message,
     RustCallStatus *_Nonnull out_status
     );
-void ffi_vcx_743a_Holder_object_free(
+void ffi_vcx_cb32_Holder_object_free(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-void vcx_743a_Holder_set_proposal(
+void vcx_cb32_Holder_set_proposal(
       void*_Nonnull ptr,RustBuffer credential_proposal,
     RustCallStatus *_Nonnull out_status
     );
-void vcx_743a_Holder_prepare_credential_request(
+void vcx_cb32_Holder_prepare_credential_request(
       void*_Nonnull ptr,void*_Nonnull profile,RustBuffer my_pw_did,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_msg_credential_request(
+RustBuffer vcx_cb32_Holder_get_msg_credential_request(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_decline_offer(
+RustBuffer vcx_cb32_Holder_decline_offer(
       void*_Nonnull ptr,RustBuffer comment,
     RustCallStatus *_Nonnull out_status
     );
-void vcx_743a_Holder_process_credential(
+void vcx_cb32_Holder_process_credential(
       void*_Nonnull ptr,void*_Nonnull profile,RustBuffer credential,
     RustCallStatus *_Nonnull out_status
     );
-int8_t vcx_743a_Holder_is_terminal_state(
+int8_t vcx_cb32_Holder_is_terminal_state(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_state(
+RustBuffer vcx_cb32_Holder_get_state(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_source_id(
+RustBuffer vcx_cb32_Holder_get_source_id(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_credential(
+RustBuffer vcx_cb32_Holder_get_credential(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_attributes(
+RustBuffer vcx_cb32_Holder_get_attributes(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_attachment(
+RustBuffer vcx_cb32_Holder_get_attachment(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_offer(
+RustBuffer vcx_cb32_Holder_get_offer(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_tails_location(
+RustBuffer vcx_cb32_Holder_get_tails_location(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_tails_hash(
+RustBuffer vcx_cb32_Holder_get_tails_hash(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_rev_reg_id(
+RustBuffer vcx_cb32_Holder_get_rev_reg_id(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_cred_id(
+RustBuffer vcx_cb32_Holder_get_cred_id(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_thread_id(
+RustBuffer vcx_cb32_Holder_get_thread_id(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-int8_t vcx_743a_Holder_is_revokable(
+int8_t vcx_cb32_Holder_is_revokable(
       void*_Nonnull ptr,void*_Nonnull profile,
     RustCallStatus *_Nonnull out_status
     );
-int8_t vcx_743a_Holder_is_revoked(
+int8_t vcx_cb32_Holder_is_revoked(
       void*_Nonnull ptr,void*_Nonnull profile,
     RustCallStatus *_Nonnull out_status
     );
-uint32_t vcx_743a_Holder_get_cred_rev_id(
+uint32_t vcx_cb32_Holder_get_cred_rev_id(
       void*_Nonnull ptr,void*_Nonnull profile,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_problem_report(
+RustBuffer vcx_cb32_Holder_get_problem_report(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_Holder_get_final_message(
+RustBuffer vcx_cb32_Holder_get_final_message(
       void*_Nonnull ptr,
     RustCallStatus *_Nonnull out_status
     );
-void*_Nonnull vcx_743a_new_indy_profile(
+void*_Nonnull vcx_cb32_new_indy_profile(
       RustBuffer wallet_config,RustBuffer genesis_file_path,
     RustCallStatus *_Nonnull out_status
     );
-void*_Nonnull vcx_743a_create_inviter(
+void*_Nonnull vcx_cb32_create_inviter(
       void*_Nonnull profile,
     RustCallStatus *_Nonnull out_status
     );
-void*_Nonnull vcx_743a_create_invitee(
+void*_Nonnull vcx_cb32_create_invitee(
       void*_Nonnull profile,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_unpack_message(
+RustBuffer vcx_cb32_unpack_message(
       void*_Nonnull profile,RustBuffer packed_msg,
     RustCallStatus *_Nonnull out_status
     );
-void*_Nonnull vcx_743a_create(
+void*_Nonnull vcx_cb32_create(
       RustBuffer source_id,
     RustCallStatus *_Nonnull out_status
     );
-void*_Nonnull vcx_743a_create_from_offer(
+void*_Nonnull vcx_cb32_create_from_offer(
       RustBuffer source_id,RustBuffer offer_message,
     RustCallStatus *_Nonnull out_status
     );
-void*_Nonnull vcx_743a_create_with_proposal(
+void*_Nonnull vcx_cb32_create_with_proposal(
       RustBuffer source_id,RustBuffer propose_credential,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer vcx_743a_get_credentials(
+RustBuffer vcx_cb32_get_credentials(
       void*_Nonnull profile,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer ffi_vcx_743a_rustbuffer_alloc(
+RustBuffer vcx_cb32_mymethod(
+      
+    RustCallStatus *_Nonnull out_status
+    );
+RustBuffer ffi_vcx_cb32_rustbuffer_alloc(
       int32_t size,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer ffi_vcx_743a_rustbuffer_from_bytes(
+RustBuffer ffi_vcx_cb32_rustbuffer_from_bytes(
       ForeignBytes bytes,
     RustCallStatus *_Nonnull out_status
     );
-void ffi_vcx_743a_rustbuffer_free(
+void ffi_vcx_cb32_rustbuffer_free(
       RustBuffer buf,
     RustCallStatus *_Nonnull out_status
     );
-RustBuffer ffi_vcx_743a_rustbuffer_reserve(
+RustBuffer ffi_vcx_cb32_rustbuffer_reserve(
       RustBuffer buf,int32_t additional,
     RustCallStatus *_Nonnull out_status
     );
