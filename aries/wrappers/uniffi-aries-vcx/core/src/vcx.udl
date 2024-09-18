@@ -196,4 +196,7 @@ namespace vcx {
 
     [Throws=VcxUniFFIError]
     string get_credentials(ProfileHolder profile);
+
+    [Throws=VcxUniFFIError]
+    string mymethod();
 };

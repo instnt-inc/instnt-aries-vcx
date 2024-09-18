@@ -15,3 +15,7 @@ pub fn get_credentials(profile_holder: Arc<ProfileHolder>) -> VcxUniFFIResult<St
         Ok(serde_json::to_string(&credentials)?)
     })
 }
+
+pub fn mymethod() -> VcxUniFFIResult<String> {
+    Ok(serde_json::to_string("result from rust")?)
+}
