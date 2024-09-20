@@ -19,13 +19,13 @@ private extension RustBuffer {
     }
 
     static func from(_ ptr: UnsafeBufferPointer<UInt8>) -> RustBuffer {
-        try! rustCall { ffi_vcx_743a_rustbuffer_from_bytes(ForeignBytes(bufferPointer: ptr), $0) }
+        try! rustCall { ffi_vcx_cb32_rustbuffer_from_bytes(ForeignBytes(bufferPointer: ptr), $0) }
     }
 
     // Frees the buffer in place.
     // The buffer must not be used after this is called.
     func deallocate() {
-        try! rustCall { ffi_vcx_743a_rustbuffer_free(self, $0) }
+        try! rustCall { ffi_vcx_cb32_rustbuffer_free(self, $0) }
     }
 }
 
@@ -375,13 +375,13 @@ public class Connection: ConnectionProtocol {
     }
 
     deinit {
-        try! rustCall { ffi_vcx_743a_Connection_object_free(pointer, $0) }
+        try! rustCall { ffi_vcx_cb32_Connection_object_free(pointer, $0) }
     }
 
     public func getState() throws -> ConnectionState {
         return try FfiConverterTypeConnectionState.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Connection_get_state(self.pointer, $0)
+                vcx_cb32_Connection_get_state(self.pointer, $0)
             }
         )
     }
@@ -389,7 +389,7 @@ public class Connection: ConnectionProtocol {
     public func pairwiseInfo() throws -> PairwiseInfo {
         return try FfiConverterTypePairwiseInfo.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Connection_pairwise_info(self.pointer, $0)
+                vcx_cb32_Connection_pairwise_info(self.pointer, $0)
             }
         )
     }
@@ -397,7 +397,7 @@ public class Connection: ConnectionProtocol {
     public func acceptInvitation(profile: ProfileHolder, invitation: String) throws {
         try
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Connection_accept_invitation(self.pointer,
+                vcx_cb32_Connection_accept_invitation(self.pointer,
                                                       FfiConverterTypeProfileHolder.lower(profile),
                                                       FfiConverterString.lower(invitation), $0)
             }
@@ -406,7 +406,7 @@ public class Connection: ConnectionProtocol {
     public func handleRequest(profile: ProfileHolder, request: String, serviceEndpoint: String, routingKeys: [String]) throws {
         try
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Connection_handle_request(self.pointer,
+                vcx_cb32_Connection_handle_request(self.pointer,
                                                    FfiConverterTypeProfileHolder.lower(profile),
                                                    FfiConverterString.lower(request),
                                                    FfiConverterString.lower(serviceEndpoint),
@@ -417,7 +417,7 @@ public class Connection: ConnectionProtocol {
     public func handleResponse(profile: ProfileHolder, response: String) throws {
         try
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Connection_handle_response(self.pointer,
+                vcx_cb32_Connection_handle_response(self.pointer,
                                                     FfiConverterTypeProfileHolder.lower(profile),
                                                     FfiConverterString.lower(response), $0)
             }
@@ -426,7 +426,7 @@ public class Connection: ConnectionProtocol {
     public func sendRequest(profile: ProfileHolder, serviceEndpoint: String, routingKeys: [String]) throws {
         try
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Connection_send_request(self.pointer,
+                vcx_cb32_Connection_send_request(self.pointer,
                                                  FfiConverterTypeProfileHolder.lower(profile),
                                                  FfiConverterString.lower(serviceEndpoint),
                                                  FfiConverterSequenceString.lower(routingKeys), $0)
@@ -436,7 +436,7 @@ public class Connection: ConnectionProtocol {
     public func sendResponse(profile: ProfileHolder) throws {
         try
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Connection_send_response(self.pointer,
+                vcx_cb32_Connection_send_response(self.pointer,
                                                   FfiConverterTypeProfileHolder.lower(profile), $0)
             }
     }
@@ -444,7 +444,7 @@ public class Connection: ConnectionProtocol {
     public func sendAck(profile: ProfileHolder) throws {
         try
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Connection_send_ack(self.pointer,
+                vcx_cb32_Connection_send_ack(self.pointer,
                                              FfiConverterTypeProfileHolder.lower(profile), $0)
             }
     }
@@ -452,7 +452,7 @@ public class Connection: ConnectionProtocol {
     public func sendMessage(profile: ProfileHolder, message: String) throws {
         try
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Connection_send_message(self.pointer,
+                vcx_cb32_Connection_send_message(self.pointer,
                                                  FfiConverterTypeProfileHolder.lower(profile),
                                                  FfiConverterString.lower(message), $0)
             }
@@ -525,13 +525,13 @@ public class Holder: HolderProtocol {
     }
 
     deinit {
-        try! rustCall { ffi_vcx_743a_Holder_object_free(pointer, $0) }
+        try! rustCall { ffi_vcx_cb32_Holder_object_free(pointer, $0) }
     }
 
     public func setProposal(credentialProposal: String) throws {
         try
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_set_proposal(self.pointer,
+                vcx_cb32_Holder_set_proposal(self.pointer,
                                              FfiConverterString.lower(credentialProposal), $0)
             }
     }
@@ -539,7 +539,7 @@ public class Holder: HolderProtocol {
     public func prepareCredentialRequest(profile: ProfileHolder, myPwDid: String) throws {
         try
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_prepare_credential_request(self.pointer,
+                vcx_cb32_Holder_prepare_credential_request(self.pointer,
                                                            FfiConverterTypeProfileHolder.lower(profile),
                                                            FfiConverterString.lower(myPwDid), $0)
             }
@@ -548,7 +548,7 @@ public class Holder: HolderProtocol {
     public func getMsgCredentialRequest() throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_msg_credential_request(self.pointer, $0)
+                vcx_cb32_Holder_get_msg_credential_request(self.pointer, $0)
             }
         )
     }
@@ -556,7 +556,7 @@ public class Holder: HolderProtocol {
     public func declineOffer(comment: String?) throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_decline_offer(self.pointer,
+                vcx_cb32_Holder_decline_offer(self.pointer,
                                               FfiConverterOptionString.lower(comment), $0)
             }
         )
@@ -565,7 +565,7 @@ public class Holder: HolderProtocol {
     public func processCredential(profile: ProfileHolder, credential: String) throws {
         try
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_process_credential(self.pointer,
+                vcx_cb32_Holder_process_credential(self.pointer,
                                                    FfiConverterTypeProfileHolder.lower(profile),
                                                    FfiConverterString.lower(credential), $0)
             }
@@ -574,7 +574,7 @@ public class Holder: HolderProtocol {
     public func isTerminalState() throws -> Bool {
         return try FfiConverterBool.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_is_terminal_state(self.pointer, $0)
+                vcx_cb32_Holder_is_terminal_state(self.pointer, $0)
             }
         )
     }
@@ -582,7 +582,7 @@ public class Holder: HolderProtocol {
     public func getState() throws -> HolderState {
         return try FfiConverterTypeHolderState.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_state(self.pointer, $0)
+                vcx_cb32_Holder_get_state(self.pointer, $0)
             }
         )
     }
@@ -590,7 +590,7 @@ public class Holder: HolderProtocol {
     public func getSourceId() throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_source_id(self.pointer, $0)
+                vcx_cb32_Holder_get_source_id(self.pointer, $0)
             }
         )
     }
@@ -598,7 +598,7 @@ public class Holder: HolderProtocol {
     public func getCredential() throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_credential(self.pointer, $0)
+                vcx_cb32_Holder_get_credential(self.pointer, $0)
             }
         )
     }
@@ -606,7 +606,7 @@ public class Holder: HolderProtocol {
     public func getAttributes() throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_attributes(self.pointer, $0)
+                vcx_cb32_Holder_get_attributes(self.pointer, $0)
             }
         )
     }
@@ -614,7 +614,7 @@ public class Holder: HolderProtocol {
     public func getAttachment() throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_attachment(self.pointer, $0)
+                vcx_cb32_Holder_get_attachment(self.pointer, $0)
             }
         )
     }
@@ -622,7 +622,7 @@ public class Holder: HolderProtocol {
     public func getOffer() throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_offer(self.pointer, $0)
+                vcx_cb32_Holder_get_offer(self.pointer, $0)
             }
         )
     }
@@ -630,7 +630,7 @@ public class Holder: HolderProtocol {
     public func getTailsLocation() throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_tails_location(self.pointer, $0)
+                vcx_cb32_Holder_get_tails_location(self.pointer, $0)
             }
         )
     }
@@ -638,7 +638,7 @@ public class Holder: HolderProtocol {
     public func getTailsHash() throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_tails_hash(self.pointer, $0)
+                vcx_cb32_Holder_get_tails_hash(self.pointer, $0)
             }
         )
     }
@@ -646,7 +646,7 @@ public class Holder: HolderProtocol {
     public func getRevRegId() throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_rev_reg_id(self.pointer, $0)
+                vcx_cb32_Holder_get_rev_reg_id(self.pointer, $0)
             }
         )
     }
@@ -654,7 +654,7 @@ public class Holder: HolderProtocol {
     public func getCredId() throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_cred_id(self.pointer, $0)
+                vcx_cb32_Holder_get_cred_id(self.pointer, $0)
             }
         )
     }
@@ -662,7 +662,7 @@ public class Holder: HolderProtocol {
     public func getThreadId() throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_thread_id(self.pointer, $0)
+                vcx_cb32_Holder_get_thread_id(self.pointer, $0)
             }
         )
     }
@@ -670,7 +670,7 @@ public class Holder: HolderProtocol {
     public func isRevokable(profile: ProfileHolder) throws -> Bool {
         return try FfiConverterBool.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_is_revokable(self.pointer,
+                vcx_cb32_Holder_is_revokable(self.pointer,
                                              FfiConverterTypeProfileHolder.lower(profile), $0)
             }
         )
@@ -679,7 +679,7 @@ public class Holder: HolderProtocol {
     public func isRevoked(profile: ProfileHolder) throws -> Bool {
         return try FfiConverterBool.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_is_revoked(self.pointer,
+                vcx_cb32_Holder_is_revoked(self.pointer,
                                            FfiConverterTypeProfileHolder.lower(profile), $0)
             }
         )
@@ -688,7 +688,7 @@ public class Holder: HolderProtocol {
     public func getCredRevId(profile: ProfileHolder) throws -> UInt32 {
         return try FfiConverterUInt32.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_cred_rev_id(self.pointer,
+                vcx_cb32_Holder_get_cred_rev_id(self.pointer,
                                                 FfiConverterTypeProfileHolder.lower(profile), $0)
             }
         )
@@ -697,7 +697,7 @@ public class Holder: HolderProtocol {
     public func getProblemReport() throws -> String {
         return try FfiConverterString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_problem_report(self.pointer, $0)
+                vcx_cb32_Holder_get_problem_report(self.pointer, $0)
             }
         )
     }
@@ -705,7 +705,7 @@ public class Holder: HolderProtocol {
     public func getFinalMessage() throws -> String? {
         return try FfiConverterOptionString.lift(
             rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-                vcx_743a_Holder_get_final_message(self.pointer, $0)
+                vcx_cb32_Holder_get_final_message(self.pointer, $0)
             }
         )
     }
@@ -754,7 +754,7 @@ public class ProfileHolder: ProfileHolderProtocol {
     }
 
     deinit {
-        try! rustCall { ffi_vcx_743a_ProfileHolder_object_free(pointer, $0) }
+        try! rustCall { ffi_vcx_cb32_ProfileHolder_object_free(pointer, $0) }
     }
 }
 
@@ -1454,7 +1454,7 @@ private struct FfiConverterSequenceString: FfiConverterRustBuffer {
 public func newIndyProfile(walletConfig: AskarWalletConfig, genesisFilePath: String) throws -> ProfileHolder {
     return try FfiConverterTypeProfileHolder.lift(
         rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-            vcx_743a_new_indy_profile(
+            vcx_cb32_new_indy_profile(
                 FfiConverterTypeAskarWalletConfig.lower(walletConfig),
                 FfiConverterString.lower(genesisFilePath), $0
             )
@@ -1465,7 +1465,7 @@ public func newIndyProfile(walletConfig: AskarWalletConfig, genesisFilePath: Str
 public func createInviter(profile: ProfileHolder) throws -> Connection {
     return try FfiConverterTypeConnection.lift(
         rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-            vcx_743a_create_inviter(
+            vcx_cb32_create_inviter(
                 FfiConverterTypeProfileHolder.lower(profile), $0
             )
         }
@@ -1475,7 +1475,7 @@ public func createInviter(profile: ProfileHolder) throws -> Connection {
 public func createInvitee(profile: ProfileHolder) throws -> Connection {
     return try FfiConverterTypeConnection.lift(
         rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-            vcx_743a_create_invitee(
+            vcx_cb32_create_invitee(
                 FfiConverterTypeProfileHolder.lower(profile), $0
             )
         }
@@ -1485,7 +1485,7 @@ public func createInvitee(profile: ProfileHolder) throws -> Connection {
 public func unpackMessage(profile: ProfileHolder, packedMsg: String) throws -> UnpackMessage {
     return try FfiConverterTypeUnpackMessage.lift(
         rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-            vcx_743a_unpack_message(
+            vcx_cb32_unpack_message(
                 FfiConverterTypeProfileHolder.lower(profile),
                 FfiConverterString.lower(packedMsg), $0
             )
@@ -1496,7 +1496,7 @@ public func unpackMessage(profile: ProfileHolder, packedMsg: String) throws -> U
 public func create(sourceId: String) throws -> Holder {
     return try FfiConverterTypeHolder.lift(
         rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-            vcx_743a_create(
+            vcx_cb32_create(
                 FfiConverterString.lower(sourceId), $0
             )
         }
@@ -1506,7 +1506,7 @@ public func create(sourceId: String) throws -> Holder {
 public func createFromOffer(sourceId: String, offerMessage: String) throws -> Holder {
     return try FfiConverterTypeHolder.lift(
         rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-            vcx_743a_create_from_offer(
+            vcx_cb32_create_from_offer(
                 FfiConverterString.lower(sourceId),
                 FfiConverterString.lower(offerMessage), $0
             )
@@ -1517,7 +1517,7 @@ public func createFromOffer(sourceId: String, offerMessage: String) throws -> Ho
 public func createWithProposal(sourceId: String, proposeCredential: String) throws -> Holder {
     return try FfiConverterTypeHolder.lift(
         rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-            vcx_743a_create_with_proposal(
+            vcx_cb32_create_with_proposal(
                 FfiConverterString.lower(sourceId),
                 FfiConverterString.lower(proposeCredential), $0
             )
@@ -1528,9 +1528,17 @@ public func createWithProposal(sourceId: String, proposeCredential: String) thro
 public func getCredentials(profile: ProfileHolder) throws -> String {
     return try FfiConverterString.lift(
         rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
-            vcx_743a_get_credentials(
+            vcx_cb32_get_credentials(
                 FfiConverterTypeProfileHolder.lower(profile), $0
             )
+        }
+    )
+}
+
+public func mymethod() throws -> String {
+    return try FfiConverterString.lift(
+        rustCallWithError(FfiConverterTypeVcxUniFfiError.self) {
+            vcx_cb32_mymethod($0)
         }
     )
 }
