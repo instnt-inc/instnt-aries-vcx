@@ -26,8 +26,3 @@ let package = Package(
         )
     ]
 )
-
-//let AriesVCXTarget = package.targets.first(where: { $0.name == "InstntAriesVCXPackage" })
-
-//AriesVCXTarget?.dependencies.append("VCX_uniffiFFI_Lib")
-
