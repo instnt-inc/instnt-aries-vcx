@@ -12,26 +12,6 @@
     ABI="iphoneos"
 
     generate_bindings() {
-
-        #export LIBZMQ_LIB_DIR=/usr/lib/x86_64-linux-gnu
-        #export LIBZMQ_INCLUDE_DIR=/usr/include
-
-        # # Update package list
-        # sudo apt-get update
-
-        # # Install necessary packages
-        # sudo apt-get install cmake autoconf automake libtool pkg-config git
-
-        # # Clone ZeroMQ repository
-        # git clone https://github.com/zeromq/libzmq.git vendor/libzmq
-
-        # # Build ZeroMQ from source
-        # cd vendor/libzmq
-        # ./autogen.sh
-        # ./configure
-        # make
-        # # Optional: Install ZeroMQ
-        # sudo make install
         
         export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries/wrappers/uniffi-aries-vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries/agents/ios/ariesvcx/ariesvcx"
