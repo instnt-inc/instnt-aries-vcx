@@ -6141,7 +6141,7 @@ dependencies = [
  "camino",
  "clap 3.2.25",
  "uniffi_bindgen 0.23.0",
- "uniffi_build 0.23.0",
+ "uniffi_build",
  "uniffi_core 0.23.0",
  "uniffi_macros 0.23.0",
 ]
@@ -6157,7 +6157,6 @@ dependencies = [
  "cargo_metadata",
  "clap 4.5.9",
  "uniffi_bindgen 0.28.1",
- "uniffi_build 0.28.1",
  "uniffi_core 0.28.1",
  "uniffi_macros 0.28.1",
 ]
@@ -6244,17 +6243,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "uniffi_build"
-version = "0.28.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2b12684401d2a8508ca9c72a95bbc45906417e42fc80942abaf033bbf01aa33"
-dependencies = [
- "anyhow",
- "camino",
- "uniffi_bindgen 0.28.1",
-]
-
-[[package]]
 name = "uniffi_checksum_derive"
 version = "0.23.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6320,7 +6308,7 @@ dependencies = [
  "serde",
  "syn 1.0.109",
  "toml 0.5.11",
- "uniffi_build 0.23.0",
+ "uniffi_build",
  "uniffi_meta 0.23.0",
 ]
 

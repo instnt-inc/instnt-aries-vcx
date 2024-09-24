@@ -25,14 +25,3 @@ uuid = { version = "1.10.0", features = [
   "v4",       # Lets you generate random UUIDs
   "fast-rng", # Use a faster (but still sufficiently random) RNG
 ] }
-
-[build-dependencies]
-uniffi = { version = "0.28.0", features = [ "build", "cli" ] }
-
-[[bin]]
-name = "uniffi-bindgen"
-path = "uniffi-bindgen.rs"
-
-[lib]
-crate-type = ["cdylib"]
-name = "aries_framework_vcx"
