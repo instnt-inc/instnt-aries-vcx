@@ -139,7 +139,7 @@
 
         rm -R ${ABI_PATH}/vcx.xcframework.zip
 
-        echo "File uploaded"
+        echo "File uploaded on releases"
 
     }
 
