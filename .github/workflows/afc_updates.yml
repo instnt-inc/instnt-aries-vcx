@@ -1,0 +1,21 @@
+name: CI for aries-vcx-framework
+
+on:
+  push:
+    branches:
+      - aries-framework-vcx-uniffi-ios
+    paths:
+      - 'aries-vcx-framework/**'
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Tests
+        run: |
+          # Add your test commands here
+          echo "CI for aries-vcx-framework run"
