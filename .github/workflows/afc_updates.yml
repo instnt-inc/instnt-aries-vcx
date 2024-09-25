@@ -18,4 +18,4 @@ jobs:
       - name: Run Tests
         run: |
           # Add your test commands here
-          echo "CI for aries-vcx-framework run"
+          echo "CI for aries-vcx-framework run test"
