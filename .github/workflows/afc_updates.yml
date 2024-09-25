@@ -1,11 +1,11 @@
-name: CI for aries-vcx-framework
+name: CI for aries_framework_vcx
 
 on:
   push:
     branches:
       - aries-framework-vcx-uniffi-ios
     paths:
-      - 'aries-vcx-framework/**'
+      - 'aries_framework_vcx/**'
 
 jobs:
   build:
