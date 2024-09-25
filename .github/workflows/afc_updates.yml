@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - aries-framework-vcx-uniffi-ios
-    paths:
-      - 'aries_framework_vcx/**'
+    
 
 jobs:
   build:
