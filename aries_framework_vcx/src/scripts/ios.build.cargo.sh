@@ -12,6 +12,13 @@
 
     generate_bindings() {
 
+        brew install cmake autoconf automake libtool pkg-config git
+        git clone https://github.com/zeromq/libzmq.git vendor/libzmq
+        cd vendor/libzmq
+        ./autogen.sh
+        ./configure
+        make
+
         export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries_framework_vcx/ios/"
         
