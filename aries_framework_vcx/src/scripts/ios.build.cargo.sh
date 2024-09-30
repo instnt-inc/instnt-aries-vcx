@@ -5,7 +5,6 @@
 
     # Required env vars
     ARIES_VCX_ROOT=$(dirname $(dirname $(dirname $SCRIPT_DIR)))
-    IOS_BUILD_DEPS_DIR=${ARIES_VCX_ROOT}/aries_framework_vcx/target/ios_build_deps
     LANGUAGE="swift"
     TARGET="aarch64-apple-ios"
     TARGET_NICKNAME="arm64"
@@ -13,7 +12,7 @@
 
     generate_bindings() {
 
-        export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx/"
+        export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries_framework_vcx/ios/"
         
         rustup target add ${TARGET}
@@ -22,24 +21,26 @@
 
         pushd "${UNIFFI_ROOT}"
             cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/aries_framework_vcx.udl --language ${LANGUAGE}
+            #cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/aries_framework_vcx.udl --language ${LANGUAGE}
         popd
         
         #mkdir ${IOS_APP_DIR}/Source
 
-        cp -R ${UNIFFI_ROOT}/src/vcx.swift ${UNIFFI_ROOT}/src/vcxFFI.* ${IOS_APP_DIR}
-        cp -R ${UNIFFI_ROOT}/src/vcx.swift ${UNIFFI_ROOT}/src/vcxFFI.* ${IOS_APP_DIR}/Source
-        rm -R ${UNIFFI_ROOT}/src/vcx.swift ${UNIFFI_ROOT}/src/vcxFFI.*
+        cp -R ${UNIFFI_ROOT}/src/aries_framework_vcx.swift ${UNIFFI_ROOT}/src/aries_framework_vcxFFI.* ${IOS_APP_DIR}
+        cp -R ${UNIFFI_ROOT}/src/aries_framework_vcx.swift ${UNIFFI_ROOT}/src/aries_framework_vcxFFI.* ${IOS_APP_DIR}/Source
+        rm -R ${UNIFFI_ROOT}/src/aries_framework_vcx.swift ${UNIFFI_ROOT}/src/aries_framework_vcxFFI.*
     }
 
     build_uniffi_for_demo() {
         echo "Running build_uniffi_for_demo..."
-        export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx/"
+        export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries_framework_vcx/ios"
         export ABI_PATH=${IOS_APP_DIR}/Frameworks
         mkdir -p ${ABI_PATH}
 
-        pushd ${UNIFFI_ROOT}/core
-            cargo build --target ${TARGET} --features "aries_vcx_anoncreds/zmq_vendored"
+        pushd ${UNIFFI_ROOT}
+            cargo build --target ${TARGET} 
+            #--features "aries_vcx_anoncreds/zmq_vendored"
             cp ${ARIES_VCX_ROOT}/aries_framework_vcx/target/${TARGET}/debug/libuniffi_vcx.a ${ABI_PATH}/libuniffi_vcx.a
 
         popd
@@ -51,7 +52,7 @@
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries_framework_vcx/ios"
         export ABI_PATH=${IOS_APP_DIR}/Frameworks
 
-        mv ${IOS_APP_DIR}/Source/vcxFFI.modulemap ${IOS_APP_DIR}/Source/module.modulemap 
+        mv ${IOS_APP_DIR}/Source/aries_framework_vcxFFI.modulemap ${IOS_APP_DIR}/Source/module.modulemap 
 
         xcodebuild -create-xcframework -library ${ABI_PATH}/libuniffi_vcx.a -headers ${IOS_APP_DIR}/Source -output "${ABI_PATH}/vcx.xcframework"
 

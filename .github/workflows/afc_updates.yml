@@ -15,7 +15,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run Tests
+      - name: Install Dependencies
         run: |
-          # Add your test commands here
-          echo "CI for aries-vcx-framework run test"
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew update
+          brew install pkg-config libsodium openssl zeromq just jq
+
+      - name: Set up Rust
+        run: |
+          rustc --version
+          rustup default 1.78.0
+          rustc --version
+
+      - name: Run the script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+            echo "executing ios build"
+            chmod +x ./aries_framework_vcx/src/scripts/ios.build.cargo.sh
+            ./aries_framework_vcx/src/scripts/ios.build.cargo.sh
+
+            
