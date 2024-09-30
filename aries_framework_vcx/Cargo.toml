@@ -8,6 +8,7 @@ edition = "2021"
 [dependencies]
 uniffi = { version = "0.28.0", features = ["cli"] }
 openssl = { version = "0.10", features = ["vendored"] }
+aries_vcx_anoncreds = { path = "../aries/aries_vcx_anoncreds" }
 aries_vcx = { path = "../aries/aries_vcx", features = [
   "askar_wallet",
 ] }

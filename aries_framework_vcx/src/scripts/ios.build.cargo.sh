@@ -10,7 +10,8 @@
     TARGET_NICKNAME="arm64"
     ABI="iphoneos"
 
-    generate_bindings() {
+
+    presetup() {
 
         brew install cmake autoconf automake libtool pkg-config git
         git clone https://github.com/zeromq/libzmq.git vendor/libzmq
@@ -18,6 +19,11 @@
         ./autogen.sh
         ./configure
         make
+        make install
+
+    }
+
+    generate_bindings() {
 
         export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries_framework_vcx/ios/"
@@ -46,9 +52,8 @@
         mkdir -p ${ABI_PATH}
 
         pushd ${UNIFFI_ROOT}
-            cargo build --target ${TARGET} 
-            #--features "aries_vcx_anoncreds/zmq_vendored"
-            cp ${ARIES_VCX_ROOT}/aries_framework_vcx/target/${TARGET}/debug/libuniffi_vcx.a ${ABI_PATH}/libuniffi_vcx.a
+            cargo build --target ${TARGET} --features "aries_vcx_anoncreds/zmq_vendored"
+            cp ${ARIES_VCX_ROOT}/target/${TARGET}/debug/libuniffi_vcx.a ${ABI_PATH}/libuniffi_vcx.a
 
         popd
     }
@@ -151,6 +156,7 @@
 
     }
 
+    #presetup
     generate_bindings
     build_uniffi_for_demo
     build_ios_xcframework
