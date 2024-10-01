@@ -30,15 +30,11 @@
         
         rustup target add ${TARGET}
 
-        #cargo install cargo-lipo
-
         pushd "${UNIFFI_ROOT}"
             cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/aries_framework_vcx.udl --language ${LANGUAGE}
             #cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/aries_framework_vcx.udl --language ${LANGUAGE}
         popd
         
-        #mkdir ${IOS_APP_DIR}/Source
-
         cp -R ${UNIFFI_ROOT}/src/aries_framework_vcx.swift ${UNIFFI_ROOT}/src/aries_framework_vcxFFI.* ${IOS_APP_DIR}
         cp -R ${UNIFFI_ROOT}/src/aries_framework_vcx.swift ${UNIFFI_ROOT}/src/aries_framework_vcxFFI.* ${IOS_APP_DIR}/Source
         rm -R ${UNIFFI_ROOT}/src/aries_framework_vcx.swift ${UNIFFI_ROOT}/src/aries_framework_vcxFFI.*
@@ -156,7 +152,6 @@
 
     }
 
-    #presetup
     generate_bindings
     build_uniffi_for_demo
     build_ios_xcframework
