@@ -69,7 +69,6 @@
 
         # Remove .a file if it is not required and have large size
         rm -R ${ABI_PATH}/libuniffi_vcx.a
-        rm -R ${ABI_PATH}/vcx.xcframework
 
     }
 
@@ -78,6 +77,8 @@
         export UNIFFI_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx"
         export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries_framework_vcx/ios"
         export ABI_PATH=${IOS_APP_DIR}/Frameworks
+
+        rm -R ${ABI_PATH}/vcx.xcframework
 
         XCFRAMEWORK_PATH="${ABI_PATH}/vcx.xcframework.zip"
 
@@ -155,5 +156,11 @@
     generate_bindings
     build_uniffi_for_demo
     build_ios_xcframework
+
+    if [ "$CI" == "true" ]; then
+    echo "Running in GitHub Actions"
     delete_existing_xcframework
     upload_framework
+    else
+    echo "Running locally"
+    fi
