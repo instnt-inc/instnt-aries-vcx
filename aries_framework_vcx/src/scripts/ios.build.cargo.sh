@@ -49,6 +49,7 @@
 
         pushd ${UNIFFI_ROOT}
             cargo build --target ${TARGET} --features "aries_vcx_anoncreds/zmq_vendored"
+
             cp ${ARIES_VCX_ROOT}/target/${TARGET}/debug/libuniffi_vcx.a ${ABI_PATH}/libuniffi_vcx.a
 
         popd
@@ -62,6 +63,10 @@
 
         mv ${IOS_APP_DIR}/Source/aries_framework_vcxFFI.modulemap ${IOS_APP_DIR}/Source/module.modulemap 
 
+        if [ -d "${ABI_PATH}/vcx.xcframework" ]; then
+        rm -R "${ABI_PATH}/vcx.xcframework"
+        fi
+
         xcodebuild -create-xcframework -library ${ABI_PATH}/libuniffi_vcx.a -headers ${IOS_APP_DIR}/Source -output "${ABI_PATH}/vcx.xcframework"
 
         cd ${ABI_PATH}
@@ -70,6 +75,11 @@
         # Remove .a file if it is not required and have large size
         rm -R ${ABI_PATH}/libuniffi_vcx.a
 
+    }
+
+    local_cleanup() {
+        export IOS_APP_DIR="${ARIES_VCX_ROOT}/aries_framework_vcx/ios"
+        rm -R ${ABI_PATH}/vcx.xcframework.zip
     }
 
     delete_existing_xcframework() {
@@ -163,4 +173,5 @@
     upload_framework
     else
     echo "Running locally"
+    local_cleanup
     fi
