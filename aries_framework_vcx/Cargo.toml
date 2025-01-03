@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 uniffi = { version = "0.28.0", features = ["cli"] }
+uniffi_macros = "0.28.3"
 aries_vcx = { path = "../aries/aries_vcx", features = [
   "anoncreds",
   "askar_wallet",
@@ -25,3 +26,14 @@ uuid = { version = "1.10.0", features = [
   "v4",       # Lets you generate random UUIDs
   "fast-rng", # Use a faster (but still sufficiently random) RNG
 ] }
+
+[build-dependencies]
+uniffi = { version = "0.28.0", features = ["build"] }
+
+[[bin]]
+name = "uniffi-bindgen"
+path = "uniffi-bindgen.rs"
+
+[lib]
+crate-type = ["cdylib", "staticlib"]
+name = "uniffi_reverse"

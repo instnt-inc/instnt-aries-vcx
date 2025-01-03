@@ -31,7 +31,6 @@ members = [
     "did_core/public_key",
     "misc/simple_message_relay",
     "misc/display_as_json",
-    "aries_framework_vcx",
 ]
 
 [workspace.package]

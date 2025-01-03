@@ -15,10 +15,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.Connection
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.hyperledger.ariesvcx.utils.await
-
 data class AppUiState(
     val profileReady: Boolean = false,
     val connectionInvitationReceived: Boolean = false,
@@ -28,19 +28,55 @@ data class AppUiState(
 
 class AppDemoController : ViewModel() {
     private val httpClient = OkHttpClient()
-
+/*
     private var profile: ProfileHolder? = null
     private var connection: Connection? = null
-    private var holder: Holder? = null
+    private var holder: Destination.Holder? = null
 
     private var onConnectionComplete: (connection: Connection) -> Unit = {}
     private var onOfferReceived: () -> Unit = {}
+
+    private val host = "localhost"
+    private val port = 8000
+    private val agentEndpoint = "http://$host:$port"
+    private val customConfig = ConnectionServiceConfig(
+        autoCompleteRequests = false,
+        autoRespondToRequests = true,
+        autoHandleRequests = false
+    )
+
+
+    private val DEFAULT_ASKAR_KEY_METHOD: KeyMethod = KeyMethod.DeriveKey(
+        inner = AskarKdfMethod.Argon2i(
+            inner = ArgonLevel.INTERACTIVE
+        )
+    )
+
+    private val frameworkConfig = FrameworkConfig(
+        walletConfig = AskarWalletConfig(
+            dbUrl = "sqlite://:memory:",
+            keyMethod = DEFAULT_ASKAR_KEY_METHOD,
+            passKey = "sample_pass_key",
+            profile = "aries_framework_vcx_default"
+        ),
+        connectionServiceConfig = customConfig, // Replace with default initialization
+        agentEndpoint = agentEndpoint,
+        agentLabel = "Sample Aries Framework VCX Agent"
+    )
+    // Now you can use the initialized instance
+
+    suspend fun main() {
+        val ariesFrameworkVCX = AriesFrameworkVcxInterface.initialize(frameworkConfig);
+        Log.d("Debug","Aries Log ${ariesFrameworkVCX}");
+    }
+
+
 
     // Expose screen UI state
     private val _state = MutableStateFlow(AppUiState())
     val states: StateFlow<AppUiState> = _state.asStateFlow()
 
-    fun getHolder (): Holder? {
+    fun getHolder (): Destination.Holder? {
         return holder
     }
 
@@ -164,4 +200,5 @@ class AppDemoController : ViewModel() {
             }
         }
     }
+    */
 }

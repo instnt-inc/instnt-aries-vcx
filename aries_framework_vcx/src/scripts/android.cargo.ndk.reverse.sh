@@ -17,10 +17,10 @@ generate_bindings() {
     export ANDROID_DEMO_DIR="${ARIES_VCX_ROOT}/aries/agents/MyUniffiAndroid"
 
     pushd "${FRAMEWORK_ROOT}"
-                cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/aries_framework_vcx.udl --language ${LANGUAGE}
+                cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/reverse.udl --language ${LANGUAGE}
     popd
     
-    cp -R ${FRAMEWORK_ROOT}/src/org/hyperledger/ariesframeworkvcx/aries_framework_vcx.kt ${ANDROID_DEMO_DIR}/app/src/main/java/com/example/myuniffiandroid
+    cp -R ${FRAMEWORK_ROOT}/src/org/hyperledger/ariesframeworkvcx/reverse.kt ${ANDROID_DEMO_DIR}/app/src/main/java/com/example/myuniffiandroid
     rm -R ${FRAMEWORK_ROOT}/src/org
 }
 
@@ -73,7 +73,7 @@ build_uniffi_for_demo() {
 
     pushd ${FRAMEWORK_ROOT}
         cargo ndk -t ${ABI} build
-        cp ${ARIES_VCX_ROOT}/target/${TARGET}/debug/libuniffi_aries_framework_vcx.so ${ABI_PATH}/libuniffi_aries_framework_vcx.so
+        cp ${ARIES_VCX_ROOT}/target/${TARGET}/debug/libuniffi_reverse.so ${ABI_PATH}/libuniffi_reverse.so
         cp ${LIBZMQ_LIB_DIR}/libzmq.so ${ABI_PATH}/libzmq.so
     popd
 }   
