@@ -551,6 +551,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "aries_framework_vcx_new"
+version = "0.65.0"
+dependencies = [
+ "aries_vcx",
+ "uniffi 0.28.3",
+ "url",
+]
+
+[[package]]
 name = "aries_vcx"
 version = "0.65.0"
 dependencies = [

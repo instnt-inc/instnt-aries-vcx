@@ -7,42 +7,10 @@ SCRIPT_DIR="$( cd "$(dirname "$0")" ; pwd -P )"
 ARIES_VCX_ROOT=$(dirname $(dirname $(dirname $SCRIPT_DIR)))
 ANDROID_BUILD_DEPS_DIR=${ARIES_VCX_ROOT}/target/android_build_deps
 LANGUAGE="kotlin"
-<< comment1 
+# Run comment 1 to 4 from android.cargo.ndk.framework.all.architecture.sh 
 TARGET="aarch64-linux-android"
 TARGET_NICKNAME="arm64"
 ABI="arm64-v8a"
-comment1
-<< comment2 
-TARGET="armv7-linux-androideabi"
-TARGET_NICKNAME="armv7"
-ABI="armeabi-v7a"
-comment2
-
-<< comment3 
-TARGET="i686-linux-android"
-TARGET_NICKNAME="x86"
-ABI="x86"
-comment3
-
-<< comment4 
-TARGET="x86_64-linux-android"
-TARGET_NICKNAME="x86_64"
-ABI="x86_64"
-comment4
-
-
-
-generate_bindings() {
-    export FRAMEWORK_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx"
-    export ANDROID_DEMO_DIR="${ARIES_VCX_ROOT}/aries/agents/MyUniffiAndroid"
-
-    pushd "${FRAMEWORK_ROOT}"
-                cargo run --features=uniffi/cli --bin uniffi-bindgen generate src/aries_framework_vcx.udl --language ${LANGUAGE}
-    popd
-    
-    cp -R ${FRAMEWORK_ROOT}/src/org/hyperledger/ariesframeworkvcx/aries_framework_vcx.kt ${ANDROID_DEMO_DIR}/app/src/main/java/com/example/myuniffiandroid
-    rm -R ${FRAMEWORK_ROOT}/src/org
-}
 
 download_and_unzip_if_missed() {
     expected_directory="$1"
@@ -85,33 +53,4 @@ setup_linked_dependencies() {
     export OPENSSL_STATIC=1
 }
 
-build_uniffi_for_demo() {
-    export FRAMEWORK_ROOT="${ARIES_VCX_ROOT}/aries_framework_vcx"
-    export ANDROID_DEMO_DIR="${ARIES_VCX_ROOT}/aries/agents/MyUniffiAndroid"
-    export ABI_PATH=${ANDROID_DEMO_DIR}/app/src/main/jniLibs/${ABI}
-    export ABI_PATH1=${ANDROID_DEMO_DIR}/app/src/main/jniLibs/${ABI1}
-    export ABI_PATH2=${ANDROID_DEMO_DIR}/app/src/main/jniLibs/${ABI2}
-    mkdir -p ${ABI_PATH}
-    mkdir -p ${ABI_PATH1}
-    mkdir -p ${ABI_PATH2}
-
-    pushd ${FRAMEWORK_ROOT}
-        cargo ndk -t ${ABI} build
-        cp ${ARIES_VCX_ROOT}/target/${TARGET}/debug/libaries_framework_vcx.so ${ABI_PATH}/libaries_framework_vcx.so
-        cp ${LIBZMQ_LIB_DIR}/libzmq.so ${ABI_PATH}/libzmq.so
-    popd
-    pushd ${FRAMEWORK_ROOT}
-        cargo ndk -t ${ABI1} build
-         cp ${ARIES_VCX_ROOT}/target/${TARGET}/debug/libaries_framework_vcx.so ${ABI_PATH1}/libaries_framework_vcx.so
-        cp ${LIBZMQ_LIB_DIR}/libzmq.so ${ABI_PATH1}/libzmq.so
-    popd
-    pushd ${FRAMEWORK_ROOT}
-        cargo ndk -t ${ABI2} build
-         cp ${ARIES_VCX_ROOT}/target/${TARGET}/debug/libaries_framework_vcx.so ${ABI_PATH2}/libaries_framework_vcx.so
-        cp ${LIBZMQ_LIB_DIR}/libzmq.so ${ABI_PATH2}/libzmq.so
-    popd
-}   
-
-generate_bindings
 setup_linked_dependencies
-build_uniffi_for_demo

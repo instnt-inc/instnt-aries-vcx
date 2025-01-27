@@ -1,0 +1,49 @@
+enum ArgonLevel {
+    "Interactive",
+    "Moderate",
+};
+
+[Enum]
+interface AskarKdfMethod {
+    Argon2i(ArgonLevel inner);
+};
+
+[Enum]
+interface KeyMethod {
+    DeriveKey(AskarKdfMethod inner);
+    RawKey();
+    Unprotected();
+};
+
+dictionary AskarWalletConfig {
+    string db_url;
+    KeyMethod key_method;
+    string pass_key;
+    string profile;
+};
+
+dictionary ConnectionServiceConfig {
+    boolean auto_complete_requests;
+    boolean auto_respond_to_requests;
+    boolean auto_handle_requests;
+};
+
+dictionary FrameworkConfig {
+    AskarWalletConfig wallet_config;
+    ConnectionServiceConfig connection_service_config;
+    string agent_endpoint;
+    string agent_label;
+};
+
+dictionary AriesFrameworkVCX {
+    FrameworkConfig framework_config;
+};
+
+namespace aries_framework_vcx_new {
+  string reverse_string([ByRef] string input_string);
+  string get_constant_framework_db_url();
+  string get_constant_framework_db_wallet_profile();
+  string initialize([ByRef] string input_string);
+  string initialize_new(FrameworkConfig framework_config);
+  AriesFrameworkVCX initialize_calling_aries(FrameworkConfig framework_config);
+};

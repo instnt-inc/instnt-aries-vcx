@@ -1,0 +1,26 @@
+[package]
+name = "aries_framework_vcx_new"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+license.workspace = true
+edition.workspace = true
+
+[lib]
+name = "aries_framework_vcx_new"
+crate-type = ["cdylib"]
+
+[dependencies]
+uniffi = { version = "0.28.3", features = ["cli"] }
+aries_vcx = { path = "../aries/aries_vcx", features = [
+  "anoncreds",
+  "askar_wallet",
+] }
+url = "2.5.2"
+
+[build-dependencies]
+uniffi = { version = "0.28.3", features = [ "build" ] }
+
+[[bin]]
+name = "uniffi-bindgen"
+path = "uniffi-bindgen.rs"

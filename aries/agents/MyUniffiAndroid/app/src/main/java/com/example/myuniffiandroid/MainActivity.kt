@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.myuniffiandroid.ui.theme.MyUniffiAndroidTheme
-import org.custom.reverse.sayHello
+//import org.custom.reverse.sayHello
 
 /*
 import org.hyperledger.ariesframeworkvcx.ArgonLevel
@@ -82,8 +82,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
      )
 
  */
-    System.loadLibrary("uniffi_reverse")
-    val result = sayHello("Pankaj");
+    System.loadLibrary("uniffi_aries_framework_vcx_new")
+    //val result = sayHello("Pankaj");
+    val result = uniffi.aries_framework_vcx_new.reverseString("Pankaj");
     //val result = MyRustLib().initialize(frameworkConfig);
     //val result = uniffi.math.add(1u, 3u);
     //val result = .intialize()

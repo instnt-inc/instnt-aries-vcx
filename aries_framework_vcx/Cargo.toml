@@ -36,4 +36,4 @@ path = "uniffi-bindgen.rs"
 
 [lib]
 crate-type = ["cdylib", "staticlib"]
-name = "uniffi_reverse"
+name = "aries_framework_vcx"
