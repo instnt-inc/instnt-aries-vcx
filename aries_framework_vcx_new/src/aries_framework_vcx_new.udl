@@ -39,6 +39,7 @@ dictionary AriesFrameworkVCX {
     FrameworkConfig framework_config;
 };
 
+
 namespace aries_framework_vcx_new {
   string reverse_string([ByRef] string input_string);
   string get_constant_framework_db_url();

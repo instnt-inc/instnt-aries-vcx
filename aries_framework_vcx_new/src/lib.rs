@@ -10,13 +10,17 @@ use crate::framework::AriesFrameworkVCX;
 use crate::framework::FrameworkConfig;
 use crate::connection_service::ConnectionServiceConfig;
 
-
+use error::*;
+mod error;
 pub use aries_vcx;
-pub use aries_vcx::aries_vcx_wallet::wallet::askar::{askar_wallet_config::AskarWalletConfig,key_method::{ArgonLevel, AskarKdfMethod, KeyMethod}};
-
+pub use aries_vcx::aries_vcx_wallet::wallet::askar::{askar_wallet_config::AskarWalletConfig,key_method::{ArgonLevel, AskarKdfMethod, KeyMethod}, AskarWallet};
+pub use aries_vcx::aries_vcx_wallet::wallet::base_wallet::ManageWallet;
 mod framework{
-    use aries_vcx::aries_vcx_wallet::wallet::askar::{askar_wallet_config::AskarWalletConfig,key_method::{ArgonLevel, AskarKdfMethod, KeyMethod}};
+    use aries_vcx::aries_vcx_wallet::wallet::askar::{askar_wallet_config::AskarWalletConfig,key_method::{ArgonLevel, AskarKdfMethod, KeyMethod}, AskarWallet};
+    use aries_vcx::aries_vcx_wallet::wallet::base_wallet::ManageWallet;
     use crate::connection_service::ConnectionServiceConfig;
+    use crate::VCXFrameworkResult;
+    use std::{fmt::Error, sync::{mpsc::Receiver, Arc, Mutex}};
     const IN_MEMORY_DB_URL: &str = "sqlite://:memory:";
     const DEFAULT_WALLET_PROFILE: &str = "aries_framework_vcx_default";
     const DEFAULT_ASKAR_KEY_METHOD: KeyMethod = KeyMethod::DeriveKey {
@@ -32,20 +36,13 @@ mod framework{
         pub agent_endpoint: String,
         pub agent_label: String,
     }
-
+    
     pub struct AriesFrameworkVCX {
         pub framework_config: FrameworkConfig,
     }
 
-    impl AriesFrameworkVCX {
-        async fn initialize_calling_aries(framework_config: FrameworkConfig) -> Self {
-            Self {
-                framework_config
-            }
-        }
-    }
-
     pub fn initialize_calling_aries(framework_config: FrameworkConfig) -> AriesFrameworkVCX {
+        //let wallet= framework_config.wallet_config.create_wallet();
         AriesFrameworkVCX {
             framework_config
         }
