@@ -1,4 +1,8 @@
+use std::error::Error;
+
 use thiserror::Error;
+
+use crate::KeyType;
 
 #[derive(Debug, Error)]
 pub enum PublicKeyError {
@@ -10,8 +14,14 @@ pub enum PublicKeyError {
     MultibaseDecodingError(#[from] multibase::Error),
     #[error("Varint decoding error")]
     VarintDecodingError(#[from] VarintDecodingError),
+    #[error("JWK decoding error")]
+    JwkDecodingError(#[from] Box<dyn Error + Send + Sync>),
     #[error("Unsupported multicodec descriptor: {0}")]
     UnsupportedMulticodecDescriptor(u64),
+    #[error("Unsupported multicodec descriptor: {0}")]
+    UnsupportedKeyType(String),
+    #[error("Invalid KeyType {0}, expected KeyType: {1}")]
+    InvalidKeyType(KeyType, KeyType),
 }
 
 #[derive(Debug, Error)]

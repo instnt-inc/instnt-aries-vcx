@@ -8,7 +8,7 @@ pub mod error;
 
 use anoncreds_clsignatures::RevocationRegistryDelta as ClRevocationRegistryDelta;
 pub use domain::author_agreement::GetTxnAuthorAgreementData;
-use domain::author_agreement::GetTxnAuthorAgreementResult;
+use domain::{author_agreement::GetTxnAuthorAgreementResult, txn::GetTxnReplyResult};
 use error::LedgerResponseParserError;
 use indy_vdr::{
     ledger::{
@@ -58,7 +58,7 @@ impl ResponseParser {
             GetNymReplyResult::GetNymReplyResultV0(res) => {
                 let data: GetNymResultDataV0 = res
                     .data
-                    .ok_or_else(|| LedgerResponseParserError::LedgerItemNotFound("NYM"))
+                    .ok_or(LedgerResponseParserError::LedgerItemNotFound("NYM"))
                     .and_then(|data| serde_json::from_str(&data).map_err(Into::into))?;
 
                 NymData {
@@ -192,7 +192,7 @@ impl ResponseParser {
         let data = match reply.result() {
             GetTxnAuthorAgreementResult::GetTxnAuthorAgreementResultV1(res) => res
                 .data
-                .ok_or_else(|| LedgerResponseParserError::LedgerItemNotFound("TAA"))?,
+                .ok_or(LedgerResponseParserError::LedgerItemNotFound("TAA"))?,
         };
 
         Ok(GetTxnAuthorAgreementData {
@@ -234,6 +234,22 @@ impl ResponseParser {
             revoc_reg_def_id,
             timestamp: revoc_reg.value.accum_to.txn_time,
         })
+    }
+
+    // https://github.com/hyperledger/indy-node/blob/main/docs/source/requests.md#get_txn
+    pub fn parse_get_txn_response(
+        &self,
+        get_txn_response: &str,
+    ) -> Result<serde_json::Value, LedgerResponseParserError> {
+        let reply: Reply<GetTxnReplyResult> = Self::parse_response(get_txn_response)?;
+
+        let data = match reply.result() {
+            GetTxnReplyResult::GetTxnReplyResultV0(res) => {
+                res.data.unwrap_or(serde_json::Value::Null)
+            }
+            GetTxnReplyResult::GetTxnReplyResultV1(res) => res.txn.data,
+        };
+        Ok(data)
     }
 
     pub fn parse_response<T>(response: &str) -> Result<Reply<T>, LedgerResponseParserError>

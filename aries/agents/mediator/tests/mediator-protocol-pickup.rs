@@ -1,7 +1,8 @@
 mod common;
 
 use aries_vcx::utils::encryption_envelope::EncryptionEnvelope;
-use aries_vcx_wallet::wallet::indy::IndySdkWallet;
+use aries_vcx_wallet::wallet::askar::AskarWallet;
+use base64::{engine::general_purpose::URL_SAFE_NO_PAD, Engine};
 use diddoc_legacy::aries::diddoc::AriesDidDoc;
 use mediator::aries_agent::client::transports::AriesTransport;
 use messages::{
@@ -32,7 +33,7 @@ async fn forward_basic_anoncrypt_message(
     message_text: &str,
 ) -> Result<()> {
     // Prepare forwarding agent
-    let agent_f = mediator::aries_agent::AgentBuilder::<IndySdkWallet>::new_demo_agent().await?;
+    let agent_f = mediator::aries_agent::AgentBuilder::<AskarWallet>::new_demo_agent().await?;
     // Prepare forwarding agent transport
     let mut agent_f_aries_transport = reqwest::Client::new();
     // Prepare message and wrap into anoncrypt forward message
@@ -158,7 +159,7 @@ async fn test_pickup_flow() -> Result<()> {
     if let AttachmentType::Base64(base64message) =
         &delivery.content.attach.first().unwrap().data.content
     {
-        let encrypted_message_bytes = base64_url::decode(base64message)?;
+        let encrypted_message_bytes = URL_SAFE_NO_PAD.decode(base64message)?;
         info!(
             "Decoding attachment to packed_message {}",
             String::from_utf8(message_bytes.clone())?
