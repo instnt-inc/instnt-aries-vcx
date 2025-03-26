@@ -1,0 +1,178 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="org.hyperledger.ariesvcx"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="33" />
+10
+11    <uses-feature
+11-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:4:5-6:36
+12        android:name="android.hardware.camera"
+12-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:5:9-47
+13        android:required="false" />
+13-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:6:9-33
+14
+15    <uses-permission android:name="android.permission.CAMERA" />
+15-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:7:5-65
+15-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:7:22-62
+16    <uses-permission android:name="android.permission.INTERNET" />
+16-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:8:5-67
+16-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:8:22-64
+17
+18    <permission
+18-->[androidx.core:core:1.13.0] /Users/pankajsingh/.gradle/caches/transforms-3/b59629aaaeba049e100bc2fd7316eef9/transformed/core-1.13.0/AndroidManifest.xml:22:5-24:47
+19        android:name="org.hyperledger.ariesvcx.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+19-->[androidx.core:core:1.13.0] /Users/pankajsingh/.gradle/caches/transforms-3/b59629aaaeba049e100bc2fd7316eef9/transformed/core-1.13.0/AndroidManifest.xml:23:9-81
+20        android:protectionLevel="signature" />
+20-->[androidx.core:core:1.13.0] /Users/pankajsingh/.gradle/caches/transforms-3/b59629aaaeba049e100bc2fd7316eef9/transformed/core-1.13.0/AndroidManifest.xml:24:9-44
+21
+22    <uses-permission android:name="org.hyperledger.ariesvcx.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+22-->[androidx.core:core:1.13.0] /Users/pankajsingh/.gradle/caches/transforms-3/b59629aaaeba049e100bc2fd7316eef9/transformed/core-1.13.0/AndroidManifest.xml:26:5-97
+22-->[androidx.core:core:1.13.0] /Users/pankajsingh/.gradle/caches/transforms-3/b59629aaaeba049e100bc2fd7316eef9/transformed/core-1.13.0/AndroidManifest.xml:26:22-94
+23
+24    <application
+24-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:10:5-30:19
+25        android:allowBackup="true"
+25-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:11:9-35
+26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+26-->[androidx.core:core:1.13.0] /Users/pankajsingh/.gradle/caches/transforms-3/b59629aaaeba049e100bc2fd7316eef9/transformed/core-1.13.0/AndroidManifest.xml:28:18-86
+27        android:dataExtractionRules="@xml/data_extraction_rules"
+27-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:12:9-65
+28        android:debuggable="true"
+29        android:extractNativeLibs="false"
+30        android:fullBackupContent="@xml/backup_rules"
+30-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:13:9-54
+31        android:icon="@mipmap/ic_launcher"
+31-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:14:9-43
+32        android:label="@string/app_name"
+32-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:15:9-41
+33        android:roundIcon="@mipmap/ic_launcher_round"
+33-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:16:9-54
+34        android:supportsRtl="true"
+34-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:17:9-35
+35        android:testOnly="true"
+36        android:theme="@style/Theme.Demo" >
+36-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:18:9-42
+37        <activity
+37-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:20:9-29:20
+38            android:name="org.hyperledger.ariesvcx.MainActivity"
+38-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:21:13-41
+39            android:exported="true"
+39-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:22:13-36
+40            android:theme="@style/Theme.Demo" >
+40-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:23:13-46
+41            <intent-filter>
+41-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:24:13-28:29
+42                <action android:name="android.intent.action.MAIN" />
+42-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:25:17-69
+42-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:25:25-66
+43
+44                <category android:name="android.intent.category.LAUNCHER" />
+44-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:27:17-77
+44-->/Users/pankajsingh/Desktop/Instnt/instnt-aries-vcx/instnt-aries-vcx/aries/agents/android/app/src/main/AndroidManifest.xml:27:27-74
+45            </intent-filter>
+46        </activity>
+47        <activity
+47-->[androidx.compose.ui:ui-tooling-android:1.5.0] /Users/pankajsingh/.gradle/caches/transforms-3/75870ee27799cbcd62a93afe6fb2d2da/transformed/ui-tooling-release/AndroidManifest.xml:23:9-25:39
+48            android:name="androidx.compose.ui.tooling.PreviewActivity"
+48-->[androidx.compose.ui:ui-tooling-android:1.5.0] /Users/pankajsingh/.gradle/caches/transforms-3/75870ee27799cbcd62a93afe6fb2d2da/transformed/ui-tooling-release/AndroidManifest.xml:24:13-71
+49            android:exported="true" />
+49-->[androidx.compose.ui:ui-tooling-android:1.5.0] /Users/pankajsingh/.gradle/caches/transforms-3/75870ee27799cbcd62a93afe6fb2d2da/transformed/ui-tooling-release/AndroidManifest.xml:25:13-36
+50        <!--
+51        Service for holding metadata. Cannot be instantiated.
+52        Metadata will be merged from other manifests.
+53        -->
+54        <service
+54-->[androidx.camera:camera-core:1.3.4] /Users/pankajsingh/.gradle/caches/transforms-3/adb9b7de0192308bb90d5ccaf8cb22f0/transformed/camera-core-1.3.4/AndroidManifest.xml:29:9-33:78
+55            android:name="androidx.camera.core.impl.MetadataHolderService"
+55-->[androidx.camera:camera-core:1.3.4] /Users/pankajsingh/.gradle/caches/transforms-3/adb9b7de0192308bb90d5ccaf8cb22f0/transformed/camera-core-1.3.4/AndroidManifest.xml:30:13-75
+56            android:enabled="false"
+56-->[androidx.camera:camera-core:1.3.4] /Users/pankajsingh/.gradle/caches/transforms-3/adb9b7de0192308bb90d5ccaf8cb22f0/transformed/camera-core-1.3.4/AndroidManifest.xml:31:13-36
+57            android:exported="false" >
+57-->[androidx.camera:camera-core:1.3.4] /Users/pankajsingh/.gradle/caches/transforms-3/adb9b7de0192308bb90d5ccaf8cb22f0/transformed/camera-core-1.3.4/AndroidManifest.xml:32:13-37
+58            <meta-data
+58-->[androidx.camera:camera-camera2:1.3.4] /Users/pankajsingh/.gradle/caches/transforms-3/4afb9f61440401f3de303cb6639e2bc4/transformed/camera-camera2-1.3.4/AndroidManifest.xml:30:13-32:89
+59                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+59-->[androidx.camera:camera-camera2:1.3.4] /Users/pankajsingh/.gradle/caches/transforms-3/4afb9f61440401f3de303cb6639e2bc4/transformed/camera-camera2-1.3.4/AndroidManifest.xml:31:17-103
+60                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+60-->[androidx.camera:camera-camera2:1.3.4] /Users/pankajsingh/.gradle/caches/transforms-3/4afb9f61440401f3de303cb6639e2bc4/transformed/camera-camera2-1.3.4/AndroidManifest.xml:32:17-86
+61        </service>
+62
+63        <provider
+63-->[androidx.emoji2:emoji2:1.4.0] /Users/pankajsingh/.gradle/caches/transforms-3/1872bd97ea6a0eb12d4c8b9ac529a37f/transformed/emoji2-1.4.0/AndroidManifest.xml:24:9-32:20
+64            android:name="androidx.startup.InitializationProvider"
+64-->[androidx.emoji2:emoji2:1.4.0] /Users/pankajsingh/.gradle/caches/transforms-3/1872bd97ea6a0eb12d4c8b9ac529a37f/transformed/emoji2-1.4.0/AndroidManifest.xml:25:13-67
+65            android:authorities="org.hyperledger.ariesvcx.androidx-startup"
+65-->[androidx.emoji2:emoji2:1.4.0] /Users/pankajsingh/.gradle/caches/transforms-3/1872bd97ea6a0eb12d4c8b9ac529a37f/transformed/emoji2-1.4.0/AndroidManifest.xml:26:13-68
+66            android:exported="false" >
+66-->[androidx.emoji2:emoji2:1.4.0] /Users/pankajsingh/.gradle/caches/transforms-3/1872bd97ea6a0eb12d4c8b9ac529a37f/transformed/emoji2-1.4.0/AndroidManifest.xml:27:13-37
+67            <meta-data
+67-->[androidx.emoji2:emoji2:1.4.0] /Users/pankajsingh/.gradle/caches/transforms-3/1872bd97ea6a0eb12d4c8b9ac529a37f/transformed/emoji2-1.4.0/AndroidManifest.xml:29:13-31:52
+68                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+68-->[androidx.emoji2:emoji2:1.4.0] /Users/pankajsingh/.gradle/caches/transforms-3/1872bd97ea6a0eb12d4c8b9ac529a37f/transformed/emoji2-1.4.0/AndroidManifest.xml:30:17-75
+69                android:value="androidx.startup" />
+69-->[androidx.emoji2:emoji2:1.4.0] /Users/pankajsingh/.gradle/caches/transforms-3/1872bd97ea6a0eb12d4c8b9ac529a37f/transformed/emoji2-1.4.0/AndroidManifest.xml:31:17-49
+70            <meta-data
+70-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/pankajsingh/.gradle/caches/transforms-3/f29006f7abcbbf4abd5e5badfd6d1e07/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
+71                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+71-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/pankajsingh/.gradle/caches/transforms-3/f29006f7abcbbf4abd5e5badfd6d1e07/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
+72                android:value="androidx.startup" />
+72-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/pankajsingh/.gradle/caches/transforms-3/f29006f7abcbbf4abd5e5badfd6d1e07/transformed/lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
+73            <meta-data
+73-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:29:13-31:52
+74                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+74-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:30:17-85
+75                android:value="androidx.startup" />
+75-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:31:17-49
+76        </provider>
+77
+78        <activity
+78-->[androidx.compose.ui:ui-test-manifest:1.5.0] /Users/pankajsingh/.gradle/caches/transforms-3/f12d8135eca6fec9c6d36ba073d79382/transformed/ui-test-manifest-1.5.0/AndroidManifest.xml:23:9-25:39
+79            android:name="androidx.activity.ComponentActivity"
+79-->[androidx.compose.ui:ui-test-manifest:1.5.0] /Users/pankajsingh/.gradle/caches/transforms-3/f12d8135eca6fec9c6d36ba073d79382/transformed/ui-test-manifest-1.5.0/AndroidManifest.xml:24:13-63
+80            android:exported="true" />
+80-->[androidx.compose.ui:ui-test-manifest:1.5.0] /Users/pankajsingh/.gradle/caches/transforms-3/f12d8135eca6fec9c6d36ba073d79382/transformed/ui-test-manifest-1.5.0/AndroidManifest.xml:25:13-36
+81
+82        <receiver
+82-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:34:9-52:20
+83            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+83-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:35:13-76
+84            android:directBootAware="false"
+84-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:36:13-44
+85            android:enabled="true"
+85-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:37:13-35
+86            android:exported="true"
+86-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:38:13-36
+87            android:permission="android.permission.DUMP" >
+87-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:39:13-57
+88            <intent-filter>
+88-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:40:13-42:29
+89                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+89-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:17-91
+89-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:41:25-88
+90            </intent-filter>
+91            <intent-filter>
+91-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:43:13-45:29
+92                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+92-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:17-85
+92-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:44:25-82
+93            </intent-filter>
+94            <intent-filter>
+94-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:46:13-48:29
+95                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+95-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:17-88
+95-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:47:25-85
+96            </intent-filter>
+97            <intent-filter>
+97-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:49:13-51:29
+98                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+98-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:17-95
+98-->[androidx.profileinstaller:profileinstaller:1.3.1] /Users/pankajsingh/.gradle/caches/transforms-3/6d8f425848313933c6a6815f7d3110eb/transformed/profileinstaller-1.3.1/AndroidManifest.xml:50:25-92
+99            </intent-filter>
+100        </receiver>
+101    </application>
+102
+103</manifest>
