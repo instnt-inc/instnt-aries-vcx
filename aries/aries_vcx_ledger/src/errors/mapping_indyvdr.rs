@@ -10,7 +10,7 @@ impl From<VdrError> for VcxLedgerError {
         match err.kind() {
             VdrErrorKind::Config => Self::InvalidConfiguration(err),
             VdrErrorKind::Connection => Self::PoolLedgerConnect(err),
-            VdrErrorKind::FileSystem(_) => Self::IOError(err),
+            VdrErrorKind::FileSystem => Self::IOError(err),
             VdrErrorKind::Input => Self::InvalidInput(err.to_string()),
             VdrErrorKind::Resource
             | VdrErrorKind::Unavailable
@@ -19,7 +19,7 @@ impl From<VdrError> for VcxLedgerError {
             | VdrErrorKind::PoolNoConsensus
             | VdrErrorKind::Resolver
             | VdrErrorKind::PoolTimeout => Self::UnknownError(err.to_string()),
-            VdrErrorKind::PoolRequestFailed(_) => Self::InvalidLedgerResponse,
+            VdrErrorKind::PoolRequestFailed(_) => Self::InvalidLedgerResponse(err.to_string()),
         }
     }
 }

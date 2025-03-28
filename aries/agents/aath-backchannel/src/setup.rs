@@ -1,10 +1,10 @@
 use std::{io::prelude::*, sync::Arc};
 
 use aries_vcx_agent::{
-    aries_vcx::aries_vcx_wallet::wallet::indy::IndySdkWallet, build_indy_wallet,
+    aries_vcx::aries_vcx_wallet::wallet::askar::AskarWallet, build_askar_wallet,
     Agent as AriesAgent, WalletInitConfig,
 };
-use rand::{thread_rng, Rng};
+use rand::{rng, Rng};
 use reqwest::Url;
 
 #[derive(Debug, Deserialize)]
@@ -23,11 +23,11 @@ struct WriterSeed {
 async fn get_writer_seed() -> WriterSeed {
     if let Ok(ledger_url) = std::env::var("LEDGER_URL") {
         let url = format!("{}/register", ledger_url);
-        let mut rng = thread_rng();
+        let mut rng = rng();
         let client = reqwest::Client::new();
         let body = json!({
             "role": "TRUST_ANCHOR",
-            "seed": format!("my_seed_000000000000000000{}", rng.gen_range(100000..1000000))
+            "seed": format!("my_seed_000000000000000000{}", rng.random_range(100000..1000000))
         })
         .to_string();
         let seed = client
@@ -100,7 +100,7 @@ async fn download_genesis_file() -> std::result::Result<String, String> {
     }
 }
 
-pub async fn initialize(port: u32) -> AriesAgent<IndySdkWallet> {
+pub async fn initialize(port: u32) -> AriesAgent<AskarWallet> {
     let register_nym_res = get_writer_seed().await;
     let genesis_path = download_genesis_file()
         .await
@@ -113,7 +113,7 @@ pub async fn initialize(port: u32) -> AriesAgent<IndySdkWallet> {
         wallet_key: "8dvfYSt5d1taSd6yJdpjq4emkwsPDDLYxkNFysFD2cZY".to_string(),
         wallet_kdf: "RAW".to_string(),
     };
-    let (wallet, issuer_config) = build_indy_wallet(wallet_config, register_nym_res.seed).await;
+    let (wallet, issuer_config) = build_askar_wallet(wallet_config, register_nym_res.seed).await;
     let wallet = Arc::new(wallet);
 
     let issuer_did = AriesAgent::setup_ledger(

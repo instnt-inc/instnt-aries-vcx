@@ -4,9 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-serde = { version = "1.0.163", features = ["derive"] }
-serde_json = "1.0.96"
-time = "0.3.20"
-indy-vdr = { git = "https://github.com/hyperledger/indy-vdr.git", rev = "c143268", default-features = false, features = ["log"] }
-thiserror = "1.0.44"
-anoncreds-clsignatures = "0.3.2"
+serde = { workspace = true, features = ["derive"] }
+serde_json.workspace = true
+indy-vdr.workspace = true
+thiserror.workspace = true
+anoncreds-clsignatures.workspace = true

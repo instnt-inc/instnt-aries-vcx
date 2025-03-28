@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "org.hyperledger.ariesvcx.app-mergeDebugResources-57:/values-v24/values-v24.xml",
+            "map": [
+                {
+                    "source": "/Users/pankajsingh/.gradle/caches/transforms-3/2fda692fdc573fe51072d0c6ab67e703/transformed/appcompat-1.1.0/res/values-v24/values-v24.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,212",
+                        "endColumns": "156,134",
+                        "endOffsets": "207,342"
+                    }
+                }
+            ]
+        }
+    ]
+}
