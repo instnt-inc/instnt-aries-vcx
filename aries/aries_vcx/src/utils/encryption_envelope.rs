@@ -196,24 +196,12 @@ impl EncryptionEnvelope {
     // Will unpack a message as either anoncrypt or authcrypt.
     async fn unpack_a2a_message(
         wallet: &impl BaseWallet,
-<<<<<<< HEAD
-        encrypted_data: Vec<u8>,
-    ) -> VcxResult<(String, Option<String>, String)> {
-=======
         encrypted_data: &[u8],
     ) -> VcxResult<(String, Option<Key>, Key)> {
->>>>>>> main
         trace!(
             "EncryptionEnvelope::unpack_a2a_message >>> processing payload of {} bytes",
             encrypted_data.len()
         );
-<<<<<<< HEAD
-        let unpacked_msg = wallet.unpack_message(&encrypted_data).await?;
-        Ok((
-            unpacked_msg.message,
-            unpacked_msg.sender_verkey,
-            unpacked_msg.recipient_verkey,
-=======
         let unpacked_msg = wallet.unpack_message(encrypted_data).await?;
         let sender_key = unpacked_msg
             .sender_verkey
@@ -223,24 +211,17 @@ impl EncryptionEnvelope {
             unpacked_msg.message,
             sender_key,
             Key::from_base58(&unpacked_msg.recipient_verkey, KeyType::Ed25519)?,
->>>>>>> main
         ))
     }
 
     /// Unpacks an authcrypt or anoncrypt message returning the message, which is deserialized into an Aries message, as well as the sender key (if any -- anoncrypt does not return this) and the recipient key. Optionally takes expected_sender_vk, which does a comparison to ensure the sender key is the expected key.
     pub async fn unpack_aries_msg(
         wallet: &impl BaseWallet,
-<<<<<<< HEAD
-        encrypted_data: Vec<u8>,
-    ) -> VcxResult<(AriesMessage, Option<String>, String)> {
-        let (message, sender_vk, recipient_vk) = Self::anon_unpack(wallet, encrypted_data).await?;
-=======
         encrypted_data: &[u8],
         expected_sender_vk: &Option<Key>,
     ) -> VcxResult<(AriesMessage, Option<Key>, Key)> {
         let (message, sender_vk, recipient_vk) =
             Self::unpack(wallet, encrypted_data, expected_sender_vk).await?;
->>>>>>> main
         let a2a_message = serde_json::from_str(&message).map_err(|err| {
             AriesVcxError::from_msg(
                 AriesVcxErrorKind::InvalidJson,
@@ -253,14 +234,9 @@ impl EncryptionEnvelope {
     /// Unpacks an authcrypt or anoncrypt message returning the message, the sender key (if any -- anoncrypt does not return this), and the recipient key. Optionally takes expected_sender_vk, which does a comparison to ensure the sender key is the expected key.
     pub async fn unpack(
         wallet: &impl BaseWallet,
-<<<<<<< HEAD
-        encrypted_data: Vec<u8>,
-    ) -> VcxResult<(String, Option<String>, String)> {
-=======
         encrypted_data: &[u8],
         expected_sender_vk: &Option<Key>,
     ) -> VcxResult<(String, Option<Key>, Key)> {
->>>>>>> main
         trace!(
             "EncryptionEnvelope::anon_unpack >>> processing payload of {} bytes",
             encrypted_data.len()
@@ -268,47 +244,6 @@ impl EncryptionEnvelope {
         let (a2a_message, sender_vk, recipient_vk) =
             Self::unpack_a2a_message(wallet, encrypted_data).await?;
 
-<<<<<<< HEAD
-    pub async fn auth_unpack_aries_msg(
-        wallet: &impl BaseWallet,
-        encrypted_data: Vec<u8>,
-        expected_vk: &str,
-    ) -> VcxResult<AriesMessage> {
-        let message = Self::auth_unpack(wallet, encrypted_data, expected_vk).await?;
-        let a2a_message = serde_json::from_str(&message).map_err(|err| {
-            AriesVcxError::from_msg(
-                AriesVcxErrorKind::InvalidJson,
-                format!("Cannot deserialize A2A message: {}", err),
-            )
-        })?;
-        Ok(a2a_message)
-    }
-
-    pub async fn auth_unpack(
-        wallet: &impl BaseWallet,
-        encrypted_data: Vec<u8>,
-        expected_vk: &str,
-    ) -> VcxResult<String> {
-        trace!(
-            "EncryptionEnvelope::auth_unpack >>> processing payload of {} bytes, expected_vk: {}",
-            encrypted_data.len(),
-            expected_vk
-        );
-
-        let (a2a_message, sender_vk, _) = Self::_unpack_a2a_message(wallet, encrypted_data).await?;
-        trace!(
-            "anon_unpack >> a2a_msg: {:?}, sender_vk: {:?}",
-            a2a_message,
-            sender_vk
-        );
-
-        match sender_vk {
-            Some(sender_vk) => {
-                if sender_vk != expected_vk {
-                    error!(
-                        "auth_unpack  sender_vk != expected_vk.... sender_vk: {}, expected_vk: {}",
-                        sender_vk, expected_vk
-=======
         // If expected_sender_vk was provided and a sender_verkey exists, verify that they match
         if let Some(expected_key) = expected_sender_vk {
             match &sender_vk {
@@ -317,7 +252,6 @@ impl EncryptionEnvelope {
                         error!(
                         "auth_unpack  sender_vk != expected_sender_vk.... sender_vk: {}, expected_sender_vk: {}",
                         sender_vk, expected_key
->>>>>>> main
                     );
                         return Err(AriesVcxError::from_msg(
                             AriesVcxErrorKind::AuthenticationError,
@@ -372,11 +306,7 @@ pub mod unit_tests {
         .unwrap();
 
         let (data_unpacked, sender_verkey, _) =
-<<<<<<< HEAD
-            EncryptionEnvelope::anon_unpack(&setup.wallet, envelope.0)
-=======
             EncryptionEnvelope::unpack(&setup.wallet, &envelope.0, &None)
->>>>>>> main
                 .await
                 .unwrap();
 
@@ -452,11 +382,7 @@ pub mod unit_tests {
         .await
         .unwrap();
 
-<<<<<<< HEAD
-        let (fwd_msg, _, _) = EncryptionEnvelope::anon_unpack(&setup.wallet, envelope.0)
-=======
         let (fwd_msg, _, _) = EncryptionEnvelope::unpack(&setup.wallet, &envelope.0, &None)
->>>>>>> main
             .await
             .unwrap();
         let fwd_payload = serde_json::from_str::<Value>(&fwd_msg)
@@ -465,11 +391,7 @@ pub mod unit_tests {
             .unwrap()
             .to_string();
         let (core_payload, _, _) =
-<<<<<<< HEAD
-            EncryptionEnvelope::anon_unpack(&setup.wallet, fwd_payload.into())
-=======
             EncryptionEnvelope::unpack(&setup.wallet, fwd_payload.as_bytes(), &None)
->>>>>>> main
                 .await
                 .unwrap();
 

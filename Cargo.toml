@@ -2,6 +2,7 @@
 resolver = "2"
 
 members = [
+    "aries_framework_vcx_new",
     "aries/aries_vcx",
     "aries/messages_macros",
     "aries/messages",

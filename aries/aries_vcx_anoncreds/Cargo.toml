@@ -9,8 +9,8 @@ edition.workspace = true
 [features]
 anoncreds = ["dep:anoncreds"]
 legacy_proof = []
-zmq_vendored = ["zmq-vendored"]  # Feature for zmq with vendored option
-zmq_default = ["zmq-default"]    # Feature for zmq without vendored option
+# zmq_vendored = ["zmq-vendored"]  # Feature for zmq with vendored option
+# zmq_default = ["zmq-default"]    # Feature for zmq without vendored option
 
 [dependencies]
 anoncreds = { workspace = true, optional = true }
