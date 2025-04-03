@@ -8,10 +8,14 @@ edition.workspace = true
 
 [lib]
 name = "aries_framework_vcx_new"
-crate-type = ["cdylib"]
+crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
 uniffi = { version = "0.28.3", features = ["cli"] }
+
+# Abhishek - I had to add this to run ios script successfully
+aries_vcx_anoncreds = { path = "../aries/aries_vcx_anoncreds" }
+
 aries_vcx = { path = "../aries/aries_vcx", features = [
   "anoncreds",
   "askar_wallet",
