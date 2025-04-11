@@ -19,7 +19,7 @@
         ./autogen.sh
         ./configure
         make
-        make install
+        sudo make install
 
     }
 
@@ -165,6 +165,7 @@
 
     }
 
+    #presetup
     generate_bindings
     build_uniffi_for_demo
     build_ios_xcframework
