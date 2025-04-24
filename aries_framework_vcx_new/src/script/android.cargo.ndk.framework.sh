@@ -44,9 +44,9 @@ setup_linked_dependencies() {
     mkdir -p $ANDROID_BUILD_DEPS_DIR
     # download deps
     pushd "${ANDROID_BUILD_DEPS_DIR}"
-        download_and_unzip_if_missed "openssl_$TARGET_NICKNAME" "https://repo.sovrin.org/android/libindy/deps/openssl/openssl_$TARGET_NICKNAME.zip"
-        download_and_unzip_if_missed "libsodium_$TARGET_NICKNAME" "https://repo.sovrin.org/android/libindy/deps/sodium/libsodium_$TARGET_NICKNAME.zip"
-        download_and_unzip_if_missed "libzmq_$TARGET_NICKNAME" "https://repo.sovrin.org/android/libindy/deps/zmq/libzmq_$TARGET_NICKNAME.zip"
+        download_and_unzip_if_missed "openssl_$TARGET_NICKNAME" "https://hyperledger.jfrog.io/artifactory/indy-deps/android/libindy/deps/openssl/openssl_$TARGET_NICKNAME.zip"
+        download_and_unzip_if_missed "libsodium_$TARGET_NICKNAME" "https://hyperledger.jfrog.io/artifactory/indy-deps/android/libindy/deps/sodium/libsodium_$TARGET_NICKNAME.zip"
+        download_and_unzip_if_missed "libzmq_$TARGET_NICKNAME" "https://hyperledger.jfrog.io/artifactory/indy-deps/android/libindy/deps/zmq/libzmq_$TARGET_NICKNAME.zip"
     popd
 
     # main env vars that need to be set
