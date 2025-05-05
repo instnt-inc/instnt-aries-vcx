@@ -22,41 +22,29 @@ dictionary AskarWalletConfig {
     string profile;
 };
 
-[Custom]
-typedef string Url;
-
-dictionary FrameworkConfig {
-    AskarWalletConfig wallet_config;
-    ConnectionServiceConfig connection_service_config;
-    Url agent_endpoint;
-    string agent_label;
-};
-
 dictionary ConnectionServiceConfig {
     boolean auto_complete_requests;
     boolean auto_respond_to_requests;
     boolean auto_handle_requests;
 };
 
-enum VCXFrameworkErrorKind {
-    "GenericVCXFrameworkError",
-    "SerializationError"
-};
-
-dictionary VCXError {
-    string message;
-    VCXFrameworkErrorKind kind;
-};
-
-dictionary VCXFrameworkResult {
-    boolean success;
-    string error_message;
+dictionary FrameworkConfig {
+    AskarWalletConfig wallet_config;
+    ConnectionServiceConfig connection_service_config;
+    string agent_endpoint;
+    string agent_label;
 };
 
 dictionary AriesFrameworkVCX {
     FrameworkConfig framework_config;
 };
 
-namespace aries_framework_vcx {
-    VCXFrameworkResult initialize_calling_aries(FrameworkConfig config);
+
+namespace aries_framework_vcx_new {
+  string reverse_string([ByRef] string input_string);
+  string get_constant_framework_db_url();
+  string get_constant_framework_db_wallet_profile();
+  string initialize([ByRef] string input_string);
+  string initialize_new(FrameworkConfig framework_config);
+  AriesFrameworkVCX initialize_calling_aries(FrameworkConfig framework_config);
 };
